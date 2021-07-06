@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:id="@+id/ll_received"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/img_sender"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/img_user_placeholder"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <RelativeLayout
+                android:id="@+id/chatLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/chat_receiver_bubble"
+                android:gravity="center|start"
+                android:padding="5dp">
+
+                <LinearLayout
+                    android:id="@+id/ll_received_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/lbl_received_message"
+                        style="@style/chatMessageTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="start"
+                        android:text="@string/fetching_data"
+                        android:textColor="@color/chat_receiver_text_color" />
+
+                    <TextView
+                        android:id="@+id/lbl_received_date"
+                        style="@style/chatDeliveryTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="start"
+                        android:text="@string/fetching_data"
+                        android:textColor="@color/chat_receiver_text_color" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/img_received"
+                    android:layout_width="@dimen/chat_image_width"
+                    android:layout_height="@dimen/chat_image_height"
+                    android:layout_margin="10dp"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_sent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/chat_sender_bubble"
+                android:gravity="center|end"
+                android:padding="5dp">
+
+                <LinearLayout
+                    android:id="@+id/ll_sent_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/lbl_sent_message"
+                        style="@style/chatMessageTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="end"
+                        android:text="@string/fetching_data"
+                        android:textColor="@color/chat_sender_text_color" />
+
+                    <TextView
+                        android:id="@+id/lbl_sent_date"
+                        style="@style/chatDeliveryTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="end"
+                        android:text="@string/fetching_data"
+                        android:textColor="@color/chat_sender_text_color" />
+
+                </LinearLayout>
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/img_sent"-->
+<!--                    android:layout_width="@dimen/chat_image_width"-->
+<!--                    android:layout_height="@dimen/chat_image_height"-->
+<!--                    android:layout_margin="10dp"-->
+<!--                    android:visibility="gone" />-->
+
+                <ozaydin.serkan.com.image_zoom_view.ImageViewZoom
+                    android:id="@+id/img_sent"
+                    android:layout_margin="10dp"
+                    android:layout_width="@dimen/chat_image_width"
+                    android:layout_height="@dimen/chat_image_height"
+                    android:layout_gravity="center"
+                    android:src="@drawable/img_user_placeholder"
+                    app:circle="false" />
+
+                <RelativeLayout
+                    android:layout_width="@dimen/chat_image_width"
+                    android:visibility="visible"
+                    android:id="@+id/rl_progress"
+                    android:layout_height="@dimen/chat_image_height"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:background="@drawable/circle_shape"/>
+
+                    <com.dinuscxj.progressbar.CircleProgressBar
+                        app:progress_style="line"
+                        app:line_width="3dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginTop="3dp"
+                        app:progress_background_color="@color/grey"
+                        app:progress_shader="sweep"
+                        app:progress_text_color="@color/orange"
+                        app:progress_stroke_width="2dp"
+                        android:id="@+id/line_progress"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/img_my"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/img_user_placeholder"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</layout>
