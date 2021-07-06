@@ -280,13 +280,15 @@ public class ChatActivity extends AppCompatActivity {
                             binding.recyclerview.setVisibility(View.GONE);
                             setEmptyChatData();
                             binding.llAnimation.setVisibility(View.VISIBLE);
-                            binding.llMessageContainer.setVisibility(View.GONE);
+                            binding.llMessageContainer.setVisibility(View.VISIBLE);
                         }
                     } else { // chat is closed
                         Utility.hideSoftKeyboard(ChatActivity.this);
                         binding.recyclerview.setVisibility(View.GONE);
                         setChatCloseData();
                         binding.llAnimation.setVisibility(View.VISIBLE);
+                        binding.llMessageContainer.setVisibility(View.GONE);
+
 
                         new Handler().postDelayed(new Runnable() {
                             @Override
