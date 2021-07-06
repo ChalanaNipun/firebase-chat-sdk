@@ -95,8 +95,10 @@ public class Utility {
 //                .placeholder(placeHolderImage)
 //                .into(imageView);
 
-        Picasso.with(context)
-                .load(url).placeholder(placeHolderImage).error(placeHolderImage).into(imageView);
+        if(isNotNull(url)){
+            Picasso.with(context)
+                    .load(url).placeholder(placeHolderImage).error(placeHolderImage).into(imageView);
+        }
 
     }
 
