@@ -3,8 +3,11 @@ package com.codezync.chat_sdk.util;
 import android.app.Activity;
 import android.content.Intent;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.codezync.chat_sdk.chat.ChatActivity;
 import com.codezync.chat_sdk.model.ChatRequest;
+import com.codezync.chat_sdk.model.Message;
 import com.codezync.chat_sdk.model.Sender;
 
 
@@ -15,6 +18,7 @@ public class CodeZyncChat {
     private static String mName;
     private static ChatRequest mChatRequest;
     private static Activity mActivity;
+    private static MutableLiveData<String> onMessageReceived;
 
 
     public static Sender getSender() {
@@ -35,6 +39,7 @@ public class CodeZyncChat {
             mUserId = chatRequest.getEmailOrPhoneNo();
             mName = chatRequest.getName();
             mImageUrl = chatRequest.getImageUrl();
+            onMessageReceived = new MutableLiveData<>();
         }
 
 
@@ -54,5 +59,13 @@ public class CodeZyncChat {
     public void setSendIcon(int drawableId){
         Constants.SEND_ICON = drawableId;
 
+    }
+
+    public MutableLiveData<String> OnMessageReceived(){
+        return onMessageReceived;
+    }
+
+    public static void setOnMessageReceived(String messageId) {
+        CodeZyncChat.onMessageReceived.postValue(messageId);
     }
 }

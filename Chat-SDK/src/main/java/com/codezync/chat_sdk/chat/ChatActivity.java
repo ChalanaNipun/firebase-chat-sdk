@@ -33,6 +33,7 @@ import com.codezync.chat_sdk.model.Message;
 import com.codezync.chat_sdk.model.OpenChatResponse;
 import com.codezync.chat_sdk.model.Sender;
 import com.codezync.chat_sdk.util.AlertType;
+import com.codezync.chat_sdk.util.CodeZyncChat;
 import com.codezync.chat_sdk.util.Constants;
 import com.codezync.chat_sdk.util.Converter;
 import com.codezync.chat_sdk.util.LogUtil;
@@ -46,6 +47,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.rpc.Code;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
@@ -158,7 +160,7 @@ public class ChatActivity extends AppCompatActivity {
         int resID = getResources().getIdentifier(Constants.MESSAGE_TONE_FILE_NAME, "raw", getPackageName());
         mediaPlayer = MediaPlayer.create(this, resID);
 
-        if(getActionBar() !=null){
+        if (getActionBar() != null) {
             getSupportActionBar().hide();
         }
 
@@ -282,6 +284,8 @@ public class ChatActivity extends AppCompatActivity {
                             binding.llAnimation.setVisibility(View.VISIBLE);
                             binding.llMessageContainer.setVisibility(View.VISIBLE);
                         }
+
+
                     } else { // chat is closed
                         Utility.hideSoftKeyboard(ChatActivity.this);
                         binding.recyclerview.setVisibility(View.GONE);
@@ -382,7 +386,10 @@ public class ChatActivity extends AppCompatActivity {
         viewModel.onNewMessageReceived.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                playReceivedMessageSound();
+                if (Constants.IS_ENABLED_NEW_MESSAGE_SOUND) {
+                    playReceivedMessageSound();
+                }
+                CodeZyncChat.setOnMessageReceived(s);
             }
         });
 

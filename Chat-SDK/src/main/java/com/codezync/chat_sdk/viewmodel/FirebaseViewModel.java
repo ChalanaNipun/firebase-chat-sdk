@@ -351,12 +351,11 @@ public class FirebaseViewModel extends BaseViewModel {
                             if (!response.getLastMessage().getStatus().equals(Constants.SEEN_STATUS)) {
 
                                 //if new message notifyToUser
-                                if (Constants.IS_ENABLED_NEW_MESSAGE_SOUND) {
                                     if (!lastMessageWithDateTime.equals(Converter.createIdentifier(response.getLastMessage()))) {
                                         lastMessageWithDateTime = Converter.createIdentifier(response.getLastMessage());
                                         onNewMessageReceived.postValue(lastMessageWithDateTime);
                                     }
-                                }
+
 
                                 updateLastMessageAsSeen();
                             }
