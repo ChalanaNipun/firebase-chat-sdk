@@ -31,6 +31,7 @@ import com.codezync.chat_sdk.databinding.ActivityChatBinding;
 import com.codezync.chat_sdk.model.AdminSession;
 import com.codezync.chat_sdk.model.ChatRequest;
 import com.codezync.chat_sdk.model.Message;
+import com.codezync.chat_sdk.model.NewMessageModel;
 import com.codezync.chat_sdk.model.OpenChatResponse;
 import com.codezync.chat_sdk.model.Sender;
 import com.codezync.chat_sdk.repository.ChatService;
@@ -402,10 +403,10 @@ public class ChatActivity extends AppCompatActivity {
         });
 
 
-        viewModel.onNewMessageReceived.observe(this, new Observer<String>() {
+        viewModel.onNewMessageReceived.observe(this, new Observer<NewMessageModel>() {
             @Override
-            public void onChanged(String s) {
-                CodeZyncChat.setOnMessageReceived(s);
+            public void onChanged(NewMessageModel messageModel) {
+                CodeZyncChat.setOnMessageReceived(messageModel);
                 if (Constants.IS_ENABLED_NEW_MESSAGE_SOUND) {
                     playReceivedMessageSound();
                 }

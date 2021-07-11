@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.codezync.chat_sdk.chat.ChatActivity;
 import com.codezync.chat_sdk.model.ChatRequest;
+import com.codezync.chat_sdk.model.NewMessageModel;
 import com.codezync.chat_sdk.model.Sender;
 
 
@@ -67,21 +68,20 @@ public class CodeZyncChat {
         messageResponseListener = listener;
     }
 
-    public static void setOnMessageReceived(String messageId) {
+    public static void setOnMessageReceived(NewMessageModel newMessageModel) {
         //CodeZyncChat.onMessageReceived.postValue(messageId);
         //Toasty.error(mActivity, messageId);
-
 
 
         if (messageResponseListener != null) {
 
             if (Utility.isNotNull(lastMessage)) {
-                if (lastMessage.equals(messageId)) {
+                if (lastMessage.equals(newMessageModel.getNotificationId())) {
                     return;
                 }
             }
-            lastMessage = messageId;
-            messageResponseListener.onReceive(messageId);
+            lastMessage = newMessageModel.getNotificationId();
+            messageResponseListener.onReceive(newMessageModel);
         }
     }
 

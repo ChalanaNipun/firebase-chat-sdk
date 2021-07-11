@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.codezync.chat_sdk.model.ChatRequest;
+import com.codezync.chat_sdk.model.NewMessageModel;
 import com.codezync.chat_sdk.util.CodeZyncChat;
 import com.codezync.chat_sdk.util.OnMessageReceivedListener;
 
@@ -52,9 +53,9 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //                });
 
-            chat.OnMessageReceived(new OnMessageReceivedListener<String>() {
+            chat.OnMessageReceived(new OnMessageReceivedListener<NewMessageModel>() {
                 @Override
-                public void onReceive(String response) {
+                public void onReceive(NewMessageModel response) {
                     Log.e("CHALANA", "OnMessageReceived-----");
                 }
             });

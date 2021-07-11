@@ -13,6 +13,7 @@ import com.codezync.chat_sdk.model.AdminSession;
 import com.codezync.chat_sdk.model.ChatRequest;
 import com.codezync.chat_sdk.model.ContentData;
 import com.codezync.chat_sdk.model.Message;
+import com.codezync.chat_sdk.model.NewMessageModel;
 import com.codezync.chat_sdk.model.OpenChatResponse;
 import com.codezync.chat_sdk.model.Sender;
 import com.codezync.chat_sdk.repository.FirebaseRepo;
@@ -41,7 +42,7 @@ public class FirebaseViewModel extends BaseViewModel {
     public MutableLiveData<Boolean> onLastMessageSeen = new MutableLiveData<>();
     public MutableLiveData<AdminSession> adminContentMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<String> onAdminStatusChange = new MutableLiveData<>();
-    public MutableLiveData<String> onNewMessageReceived = new MutableLiveData<>();
+    public MutableLiveData<NewMessageModel> onNewMessageReceived = new MutableLiveData<>();
     private FirebaseRepo repo;
     private AdminSession adminSession;
 
@@ -413,7 +414,7 @@ public class FirebaseViewModel extends BaseViewModel {
                                 //if new message notifyToUser
                                 if (!lastMessageWithDateTime.equals(Converter.createIdentifier(response.getLastMessage()))) {
                                     lastMessageWithDateTime = Converter.createIdentifier(response.getLastMessage());
-                                    onNewMessageReceived.postValue(lastMessageWithDateTime);
+                                    onNewMessageReceived.postValue(new NewMessageModel(lastMessageWithDateTime,response));
                                 }
                                 updateLastMessageAsSeen();
                             }
