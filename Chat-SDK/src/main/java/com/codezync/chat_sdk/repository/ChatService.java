@@ -3,6 +3,7 @@ package com.codezync.chat_sdk.repository;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 
+import com.codezync.chat_sdk.model.NewMessageModel;
 import com.codezync.chat_sdk.util.CodeZyncChat;
 import com.codezync.chat_sdk.util.LogUtil;
 import com.codezync.chat_sdk.viewmodel.FirebaseViewModel;
@@ -21,11 +22,10 @@ public class ChatService {
             // viewModel.setListenerForGetUserTyping();
             LogUtil.debug(TAG, "Chat service started...");
 
-            observer = new Observer<String>() {
+            observer = new Observer<NewMessageModel>() {
                 @Override
-                public void onChanged(String s) {
-                    LogUtil.debug(TAG, "NEW MESSAGE > " + s);
-                    CodeZyncChat.setOnMessageReceived(s);
+                public void onChanged(NewMessageModel newMessageModel) {
+                    CodeZyncChat.setOnMessageReceived(newMessageModel);
                 }
             };
 
