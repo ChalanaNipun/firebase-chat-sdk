@@ -34,14 +34,20 @@ public class ContentData {
     @Expose
     private String chatStatus;
 
+    @SerializedName("agentId")
+    @Expose
+    private String agentId;
 
-    public ContentData(ChatRequest chatRequest, Message lastMessage, boolean isCustomerOnline, boolean isAdminTyping, boolean isCustomerTyping, String chatStatus) {
+
+    public ContentData(ChatRequest chatRequest, Message lastMessage, boolean isCustomerOnline, boolean isAdminTyping,
+                       boolean isCustomerTyping, String chatStatus,String agentId) {
         this.customer = chatRequest;
         this.lastMessage = lastMessage;
         this.isCustomerOnline = isCustomerOnline;
         this.isAdminTyping = isAdminTyping;
         this.isCustomerTyping = isCustomerTyping;
         this.chatStatus = chatStatus;
+        this.agentId = agentId;
     }
 
     public ContentData() {
@@ -102,5 +108,13 @@ public class ContentData {
 
     public void setChatStatus(String chatStatus) {
         this.chatStatus = chatStatus;
+    }
+
+    public String getAgentId() {
+        return agentId;
+    }
+
+    public void setAgentId(String agentId) {
+        this.agentId = agentId;
     }
 }

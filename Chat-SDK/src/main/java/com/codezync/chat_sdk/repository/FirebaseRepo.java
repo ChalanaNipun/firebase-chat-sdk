@@ -59,6 +59,7 @@ public class FirebaseRepo {
     private SessionResponse sessionResponse;
     private ChatRequest chatRequest;
     private ListenerRegistration chatListener, adminTypingListener, lastMessageListener;
+    private AdminSession adminSession;
 
     public FirebaseRepo(Activity activity, ChatRequest chatRequest) {
         this.activity = activity;
@@ -68,8 +69,11 @@ public class FirebaseRepo {
         this.chatRequest = chatRequest;
     }
 
+    public void setAdminSession(AdminSession adminSession) {
+        this.adminSession = adminSession;
+    }
 
-//    public void getAllSessions(OnNetworkResponseListener listener) {
+    //    public void getAllSessions(OnNetworkResponseListener listener) {
 //        firebaseFirestore.collection(Constants.CHAT_COLLECTION_PATH).document(sender.getSenderId()).collection(Constants.CHAT_CONTENT_DOCUMENT).
 //                addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<QuerySnapshot>() {
 //                    @Override
@@ -151,7 +155,9 @@ public class FirebaseRepo {
 
                             // listener.onSuccessResponse(true);
 
-                            updateContent(message, listener, false);
+                           if(!message.getStatus().equals(Constants.DEFAULT_MESSAGE_STATUS)){
+                               updateContent(message, listener, false);
+                           }
 
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -164,6 +170,8 @@ public class FirebaseRepo {
 
             List<Message> list = new ArrayList<>();
             list.add(message);
+
+
             User user = new User(sender.getSenderId(), Constants.OPEN_STATUS, message.getTimestamp(), list);
             firebaseFirestore.collection(Constants.CHAT_COLLECTION_PATH).document(sender.getSenderId()).collection(Constants.CHAT_CONTENT_DOCUMENT)
                     .document().set(user)
@@ -190,7 +198,7 @@ public class FirebaseRepo {
     private void updateContent(Message message, OnNetworkResponseListener listener, boolean isFirstMessage) {
 
         if (isFirstMessage) {
-            ContentData contentData = new ContentData(chatRequest, message, true, false, false, Constants.OPEN_STATUS);
+            ContentData contentData = new ContentData(chatRequest, message, true, false, false, Constants.OPEN_STATUS,"");
             updateLastMessageContents(contentData, listener);
         } else {
             updateLastMessage(message, listener);

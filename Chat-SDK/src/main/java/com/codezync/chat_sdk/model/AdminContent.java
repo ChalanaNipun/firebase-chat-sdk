@@ -10,6 +10,9 @@ public class AdminContent {
     @Expose
     private Sender sender;
 
+    @SerializedName("defaultMessage")
+    @Expose
+    private String defaultMessage;
 
     public Sender getSender() {
         return sender;
@@ -17,5 +20,13 @@ public class AdminContent {
 
     public void setSender(Sender sender) {
         this.sender = sender;
+    }
+
+    public String getDefaultMessage() {
+        return defaultMessage;
+    }
+
+    public void setDefaultMessage(String defaultMessage) {
+        this.defaultMessage = defaultMessage;
     }
 }

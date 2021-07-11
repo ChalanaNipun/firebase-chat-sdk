@@ -3,12 +3,12 @@ package com.codezync.chat_sdk.viewmodel;
 import android.app.Activity;
 import android.app.Application;
 import android.net.Uri;
+import android.os.Handler;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.codezync.chat_sdk.R;
-import com.codezync.chat_sdk.chat.ChatAdapter;
 import com.codezync.chat_sdk.model.AdminSession;
 import com.codezync.chat_sdk.model.ChatRequest;
 import com.codezync.chat_sdk.model.ContentData;
@@ -39,11 +39,11 @@ public class FirebaseViewModel extends BaseViewModel {
     public MutableLiveData<Boolean> isLoadingChat = new MutableLiveData<>();
     public MutableLiveData<Boolean> onOffline = new MutableLiveData<>();
     public MutableLiveData<Boolean> onLastMessageSeen = new MutableLiveData<>();
-    //    public MutableLiveData<Boolean> onUserTyping = new MutableLiveData<>();
     public MutableLiveData<AdminSession> adminContentMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<String> onAdminStatusChange = new MutableLiveData<>();
     public MutableLiveData<String> onNewMessageReceived = new MutableLiveData<>();
     private FirebaseRepo repo;
+    private AdminSession adminSession;
 
     private Sender sender;
     private Activity activity;
@@ -102,6 +102,22 @@ public class FirebaseViewModel extends BaseViewModel {
             public void onSuccessResponse(OpenChatResponse response) {
                 stopLoadingChat();
                 openChatResponseMutableLiveData.postValue(response);
+
+                //detect user 1st message
+                if (response.getSessionResponse().getMessage().size() == 2) {
+                    //send default message from app side
+                    if (adminSession != null) {
+                        Message defaultMessage = new Message(Utility.getCurrentTimestamp(), adminSession.getAdminContent().getSender(), adminSession.getAdminContent().getDefaultMessage(), Constants.TEXT_CONTENT_TYPE, Constants.DEFAULT_MESSAGE_STATUS);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                sendMessage(sessionId, defaultMessage);
+                            }
+                        }, 1000);
+                    }
+
+                }
+
             }
 
             @Override
@@ -180,9 +196,54 @@ public class FirebaseViewModel extends BaseViewModel {
     }
 
 
+    private void sendMessage(String sessionId, Message message) {
+
+
+        if (message.getContentType().equals(Constants.TEXT_CONTENT_TYPE)) {
+            onSendingMessage();
+        } else {
+            onUploadingImage();
+        }
+
+        repo.sendMessage(message, Utility.isNotNull(sessionId) ? sessionId : "", new OnNetworkResponseListener<Boolean, String>() {
+            @Override
+            public void onSuccessResponse(Boolean response) {
+
+                if (message.getContentType().equals(Constants.TEXT_CONTENT_TYPE)) {
+                    stopSendingMessage();
+                } else {
+                    stopUploading();
+                }
+
+                onSuccess.postValue(response);
+            }
+
+            @Override
+            public void onErrorResponse(String response) {
+                if (message.getContentType().equals(Constants.TEXT_CONTENT_TYPE)) {
+                    stopSendingMessage();
+                } else {
+                    stopUploading();
+                }
+
+                onError.postValue(response);
+            }
+
+            @Override
+            public void onNetworkError() {
+                if (message.getContentType().equals(Constants.TEXT_CONTENT_TYPE)) {
+                    stopSendingMessage();
+                } else {
+                    stopUploading();
+                }
+                NotificationUtility.showNoInternetMessage(activity);
+            }
+        });
+    }
+
     private void sendMessage(String sessionId, String txtMessage, String contentType) {
 
-        Message message = new Message(Utility.getCurrentTimestamp(), sender, txtMessage, contentType, Constants.DEFAULT_MESSAGE_STATUS);
+        Message message = new Message(Utility.getCurrentTimestamp(), sender, txtMessage, contentType, Constants.DELIVERED_MESSAGE_STATUS);
 
         if (contentType.equals(Constants.TEXT_CONTENT_TYPE)) {
             onSendingMessage();
@@ -377,6 +438,7 @@ public class FirebaseViewModel extends BaseViewModel {
             @Override
             public void onSuccessResponse(AdminSession response) {
                 if (response != null) {
+                    adminSession = response;
                     adminContentMutableLiveData.postValue(response);
                 }
             }
