@@ -370,7 +370,6 @@ public class FirebaseRepo {
             @Override
             public void onEvent(@Nullable @org.jetbrains.annotations.Nullable DocumentSnapshot value, @Nullable @org.jetbrains.annotations.Nullable FirebaseFirestoreException error) {
                 if (value != null && value.getData() != null) {
-                    LogUtil.debug(TAG, "Changed typing status...");
                     ContentData contentData = (ContentData) Utility.stringToObject(new Gson().toJson(value.getData()), ContentData.class);
                     listener.onSuccessResponse(contentData);
                 }
@@ -427,10 +426,10 @@ public class FirebaseRepo {
             chatListener = null;
         }
 
-        if (adminTypingListener != null) {
-            adminTypingListener.remove();
-            adminTypingListener = null;
-        }
+//        if (adminTypingListener != null) {
+//            adminTypingListener.remove();
+//            adminTypingListener = null;
+//        }
 
         if (lastMessageListener != null) {
             lastMessageListener.remove();

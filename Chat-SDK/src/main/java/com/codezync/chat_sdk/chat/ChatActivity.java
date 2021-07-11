@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -32,6 +33,7 @@ import com.codezync.chat_sdk.model.ChatRequest;
 import com.codezync.chat_sdk.model.Message;
 import com.codezync.chat_sdk.model.OpenChatResponse;
 import com.codezync.chat_sdk.model.Sender;
+import com.codezync.chat_sdk.repository.ChatService;
 import com.codezync.chat_sdk.util.AlertType;
 import com.codezync.chat_sdk.util.CodeZyncChat;
 import com.codezync.chat_sdk.util.Constants;
@@ -65,7 +67,7 @@ public class ChatActivity extends AppCompatActivity {
     private PermissionManager permissionManager;
     private String TAG = "ChatActivity";
     private int uploadingImageIndex;
-    private boolean isExit;
+    private boolean isExit, isChatClosed;
 
     private Handler handler = new Handler();
     private long delay = 1500; // 1 seconds after user stops typing
@@ -122,6 +124,8 @@ public class ChatActivity extends AppCompatActivity {
     private void goOnline() {
         viewModel.updateOnlineStatus(true);
 
+        //if background chat service isStarted should pause
+        ChatService.pauseService();
     }
 
     private void goOffline() {
@@ -130,10 +134,19 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void exit() {
+
+        if (isChatClosed) {
+            ChatService.stopService();
+        } else {
+            ChatService.startService(viewModel);
+        }
+
         if (isExit) {
             viewModel.stopListeners();
             finish();
         }
+
+
     }
 
 
@@ -154,7 +167,7 @@ public class ChatActivity extends AppCompatActivity {
 
         adapter = new ChatAdapter(this, sender.getSenderId());
 
-        viewModel.init(this, chatRequest, adapter);
+        viewModel.init(this, chatRequest);
         permissionManager = new PermissionManager(this);
 
         int resID = getResources().getIdentifier(Constants.MESSAGE_TONE_FILE_NAME, "raw", getPackageName());
@@ -287,6 +300,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
                     } else { // chat is closed
+                        isChatClosed = true;
                         Utility.hideSoftKeyboard(ChatActivity.this);
                         binding.recyclerview.setVisibility(View.GONE);
                         setChatCloseData();
@@ -320,6 +334,7 @@ public class ChatActivity extends AppCompatActivity {
                 if (aDouble == null) {
                     //image uploading failed !
                     uploadingImage = null;
+                    binding.btnImage.setVisibility(View.VISIBLE);
                 } else {
                     if (aDouble > 100) {
                         adapter.removeProgress();
@@ -358,9 +373,13 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onChanged(Boolean isLoading) {
                 if (isLoading) {
-                    progressBar.show();
+                    if ((progressBar != null) && (!progressBar.isShowing())) {
+                        progressBar.show();
+                    }
                 } else {
-                    progressBar.dismiss();
+                    if ((progressBar != null) && (progressBar.isShowing())) {
+                        progressBar.dismiss();
+                    }
                 }
             }
         });
@@ -386,10 +405,10 @@ public class ChatActivity extends AppCompatActivity {
         viewModel.onNewMessageReceived.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
+                CodeZyncChat.setOnMessageReceived(s);
                 if (Constants.IS_ENABLED_NEW_MESSAGE_SOUND) {
                     playReceivedMessageSound();
                 }
-                CodeZyncChat.setOnMessageReceived(s);
             }
         });
 
@@ -405,6 +424,14 @@ public class ChatActivity extends AppCompatActivity {
             public void onChanged(AdminSession adminSession) {
                 binding.lblUserName.setText(adminSession.getAdminContent().getSender().getName());
                 Utility.loadImage(binding.imgAdmin, ChatActivity.this, adminSession.getAdminContent().getSender().getImageUrl(), R.drawable.img_pic_placeholder);
+            }
+        });
+
+
+        viewModel.onLastMessageSeen.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                adapter.setLastMessageSeen(aBoolean);
             }
         });
 

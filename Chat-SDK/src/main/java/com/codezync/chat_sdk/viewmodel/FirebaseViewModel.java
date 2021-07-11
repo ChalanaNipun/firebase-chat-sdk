@@ -38,20 +38,20 @@ public class FirebaseViewModel extends BaseViewModel {
     public MutableLiveData<Double> onProgress = new MutableLiveData<>();
     public MutableLiveData<Boolean> isLoadingChat = new MutableLiveData<>();
     public MutableLiveData<Boolean> onOffline = new MutableLiveData<>();
+    public MutableLiveData<Boolean> onLastMessageSeen = new MutableLiveData<>();
     //    public MutableLiveData<Boolean> onUserTyping = new MutableLiveData<>();
     public MutableLiveData<AdminSession> adminContentMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<String> onAdminStatusChange = new MutableLiveData<>();
     public MutableLiveData<String> onNewMessageReceived = new MutableLiveData<>();
     private FirebaseRepo repo;
-    private ChatAdapter adapter;
+
     private Sender sender;
     private Activity activity;
     private String lastMessageWithDateTime = "";
 
 
-    public void init(Activity activity, ChatRequest chatRequest, ChatAdapter adapter) {
+    public void init(Activity activity, ChatRequest chatRequest) {
         this.sender = sender;
-        this.adapter = adapter;
         this.activity = activity;
         sender = Converter.createSender(chatRequest);
         repo = new FirebaseRepo(activity, chatRequest);
@@ -345,18 +345,15 @@ public class FirebaseViewModel extends BaseViewModel {
                     //set last message status
                     if (response.getLastMessage() != null) {
                         if (response.getLastMessage().isSentMessage(sender.getSenderId())) {
-                            adapter.setLastMessageSeen(response.getLastMessage().getStatus().equals(Constants.SEEN_STATUS) ? true : false);
+                            onLastMessageSeen.postValue(response.getLastMessage().getStatus().equals(Constants.SEEN_STATUS) ? true : false);
                         } else {
-                            adapter.setLastMessageSeen(true);
+                            onLastMessageSeen.postValue(true);
                             if (!response.getLastMessage().getStatus().equals(Constants.SEEN_STATUS)) {
-
                                 //if new message notifyToUser
-                                    if (!lastMessageWithDateTime.equals(Converter.createIdentifier(response.getLastMessage()))) {
-                                        lastMessageWithDateTime = Converter.createIdentifier(response.getLastMessage());
-                                        onNewMessageReceived.postValue(lastMessageWithDateTime);
-                                    }
-
-
+                                if (!lastMessageWithDateTime.equals(Converter.createIdentifier(response.getLastMessage()))) {
+                                    lastMessageWithDateTime = Converter.createIdentifier(response.getLastMessage());
+                                    onNewMessageReceived.postValue(lastMessageWithDateTime);
+                                }
                                 updateLastMessageAsSeen();
                             }
                         }
@@ -369,6 +366,7 @@ public class FirebaseViewModel extends BaseViewModel {
             @Override
             public void onErrorResponse(String response) {
                 onError.postValue(response);
+                LogUtil.debug("OBS", "error");
             }
         });
     }
