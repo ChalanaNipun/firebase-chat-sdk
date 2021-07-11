@@ -206,25 +206,6 @@ public class FirebaseRepo {
     }
 
 
-//    private void callOpenSessionFinder(OnNetworkResponseListener listener) {
-//        getOpenSession(new OnNetworkResponseListener<SessionResponse, String>() {
-//            @Override
-//            public void onSuccessResponse(SessionResponse response) {
-//                listener.onSuccessResponse(response);
-//            }
-//
-//            @Override
-//            public void onErrorResponse(String response) {
-//                listener.onErrorResponse(response);
-//            }
-//
-//            @Override
-//            public void onNetworkError() {
-//                listener.onNetworkError();
-//            }
-//        });
-//    }
-
 
     public void updateLastMessage(Message message, String documentId, OnNetworkResponseListener listener) {
 
