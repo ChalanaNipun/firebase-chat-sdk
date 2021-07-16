@@ -61,13 +61,15 @@ public class MainActivity extends AppCompatActivity {
             });
 
 
-            chat.setEnabledImageSending(false);
+//            chat.setEnabledMessageSeenStatus(false);
+//            chat.setEnabledSentDate(false);
+            chat.setEnabledImageSending(true);
             chat.setSeenIcon(R.drawable.double_tick);
             chat.setSenderBackgroundColor(R.color.purple_200);
             chat.setHeaderShape(R.drawable.header_shape);
             chat.setBackgroundImage(R.drawable.gb);
-            chat.setChatBubbles(R.drawable.bubble_sent,R.drawable.bubble_received);
-            chat.setReceivedMessageTextColor(R.color.white);
+//            chat.setChatBubbles(R.drawable.bubble_sent,R.drawable.bubble_received);
+//            chat.setReceivedMessageTextColor(R.color.white);
 
 
         } catch (Exception e) {
