@@ -16,6 +16,7 @@
     <color name="chat_sender_text_color">#FFFFFFFF</color>
     <color name="chat_sender_hint_color">#FFFFFF</color>
     <color name="chat_bottom_color">#8c8888</color>
+    <color name="light_grey">#ebebeb</color>
     <color name="orange">#fa8e00</color>
     <color name="chat_header_color">#533190</color>
 </resources>

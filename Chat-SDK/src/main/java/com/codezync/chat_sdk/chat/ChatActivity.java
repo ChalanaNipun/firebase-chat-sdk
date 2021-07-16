@@ -274,7 +274,7 @@ public class ChatActivity extends AppCompatActivity {
             binding.btnImage.setVisibility(View.VISIBLE);
 
             if (Customization.IMAGE_PICKER_ICON != 0) {
-                binding.btnImage.setBackground(getDrawable(Customization.IMAGE_PICKER_ICON));
+                binding.btnImage.setImageDrawable(getDrawable(Customization.IMAGE_PICKER_ICON));
             }
 
         } else {
