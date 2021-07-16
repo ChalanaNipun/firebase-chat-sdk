@@ -64,6 +64,11 @@ public class CodeZyncChat {
 
     }
 
+    public void setEnableMessageSeenStatus(boolean isEnabled) {
+        Constants.IS_ENABLED_MESSAGE_SEEN_STATUS = isEnabled;
+
+    }
+
     public void OnMessageReceived(OnMessageReceivedListener listener) {
         messageResponseListener = listener;
     }

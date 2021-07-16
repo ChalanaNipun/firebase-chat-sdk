@@ -3,12 +3,13 @@ package com.codezync.chat_sdk.model;
 public class NewMessageModel {
 
     private String notificationId;
-    private ContentData contentData;
+    private Message message;
 
-    public NewMessageModel(String notificationId, ContentData contentData) {
+    public NewMessageModel(String notificationId, Message message) {
         this.notificationId = notificationId;
-        this.contentData = contentData;
+        this.message = message;
     }
+
 
     public String getNotificationId() {
         return notificationId;
@@ -18,11 +19,12 @@ public class NewMessageModel {
         this.notificationId = notificationId;
     }
 
-    public ContentData getContentData() {
-        return contentData;
+
+    public Message getMessage() {
+        return message;
     }
 
-    public void setContentData(ContentData contentData) {
-        this.contentData = contentData;
+    public void setMessage(Message message) {
+        this.message = message;
     }
 }

@@ -414,7 +414,7 @@ public class FirebaseViewModel extends BaseViewModel {
                                 //if new message notifyToUser
                                 if (!lastMessageWithDateTime.equals(Converter.createIdentifier(response.getLastMessage()))) {
                                     lastMessageWithDateTime = Converter.createIdentifier(response.getLastMessage());
-                                    onNewMessageReceived.postValue(new NewMessageModel(lastMessageWithDateTime,response));
+                                    onNewMessageReceived.postValue(new NewMessageModel(lastMessageWithDateTime, response.getLastMessage()));
                                 }
                                 updateLastMessageAsSeen();
                             }

@@ -107,16 +107,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             Utility.loadImage(holder.binding.imgMy, mActivity, message.getSender().getImageUrl(), R.drawable.img_user_placeholder);
             holder.binding.lblSentDate.setText(Utility.toDisplayDateFormat(message.getTimestamp()));
 
-            holder.binding.imgSentMessageStatus.setVisibility(View.VISIBLE);
-//            if (message.getStatus().equals(Constants.DELIVERED_STATUS)) {
-//                holder.binding.imgSentMessageStatus.setImageDrawable(mActivity.getDrawable(R.drawable.ic_delivered));
-//            } else if (message.getStatus().equals(Constants.SEEN_STATUS)) {
-//                holder.binding.imgSentMessageStatus.setImageDrawable(mActivity.getDrawable(R.drawable.ic_seen));
-//            } else {
-//                holder.binding.imgSentMessageStatus.setVisibility(View.GONE);
-//            }
+           if(Constants.IS_ENABLED_MESSAGE_SEEN_STATUS){
+               holder.binding.imgSentMessageStatus.setVisibility(View.VISIBLE);
+           }else {
+               holder.binding.imgSentMessageStatus.setVisibility(View.GONE);
+           }
 
-            //CHANGED : isLastMessage seen > all read
 
             if (isLastMessageSeen) {
                 holder.binding.imgSentMessageStatus.setImageDrawable(mActivity.getDrawable(R.drawable.ic_seen));
@@ -154,16 +150,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             holder.binding.lblReceivedDate.setText(Utility.toDisplayDateFormat(message.getTimestamp()));
 
             holder.binding.imgReceivedMessageStatus.setVisibility(View.GONE);
-//            if (message.getStatus().equals(Constants.DELIVERED_STATUS)) {
-//                LogUtil.debug(TAG, "delivered");
-//                holder.binding.imgReceivedMessageStatus.setImageDrawable(mActivity.getDrawable(R.drawable.ic_delivered));
-//            } else if (message.getStatus().equals(Constants.SEEN_STATUS)) {
-//                holder.binding.imgReceivedMessageStatus.setImageDrawable(mActivity.getDrawable(R.drawable.ic_seen));
-//                LogUtil.debug(TAG, "seen");
-//            } else {
-//                holder.binding.imgReceivedMessageStatus.setVisibility(View.GONE);
-//                LogUtil.debug(TAG, "hide = " + message.getStatus());
-//            }
+
             if (message.getContentType().equals(Constants.TEXT_CONTENT_TYPE)) {
                 holder.binding.llSent.setVisibility(View.GONE);
                 holder.binding.llReceived.setVisibility(View.VISIBLE);
