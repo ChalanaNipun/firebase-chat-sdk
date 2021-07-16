@@ -7,6 +7,7 @@ public class Customization {
     public static Boolean IS_ENABLED_RECEIVER_ICON = true;
     public static Boolean IS_ENABLED_SENT_DATE = true;
     public static Boolean IS_ENABLED_IMAGE_SENDING = true;
+    public static Boolean IS_ENABLED_ADMINS_ONLINE_STATUS = true;
     public static int SEND_ICON = 0;
     public static int NEW_MESSAGE_SOUND = 0;
     public static int SEEN_ICON = 0;

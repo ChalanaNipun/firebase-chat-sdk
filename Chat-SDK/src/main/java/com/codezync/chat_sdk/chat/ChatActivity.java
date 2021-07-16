@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
@@ -13,7 +12,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -26,6 +24,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.codezync.adapter.ChatAdapter;
 import com.codezync.chat_sdk.R;
 import com.codezync.chat_sdk.databinding.ActivityChatBinding;
 import com.codezync.chat_sdk.model.AdminSession;
@@ -49,9 +48,6 @@ import com.codezync.chat_sdk.util.Utility;
 import com.codezync.chat_sdk.viewmodel.FirebaseViewModel;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.rpc.Code;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
@@ -62,6 +58,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private ActivityChatBinding binding;
     private ChatAdapter adapter;
+
     private FirebaseViewModel viewModel;
     private Dialog progressBar;
     private ChatRequest chatRequest;
@@ -174,6 +171,7 @@ public class ChatActivity extends AppCompatActivity {
 
         adapter = new ChatAdapter(this, sender.getSenderId());
 
+
         viewModel.init(this, chatRequest);
         permissionManager = new PermissionManager(this);
 
@@ -256,7 +254,7 @@ public class ChatActivity extends AppCompatActivity {
         }
 
         if (Customization.BACKGROUND_IMAGE != 0) {
-            binding.recyclerview.setBackground(getDrawable(Customization.BACKGROUND_IMAGE));
+            binding.llMain.setBackground(getDrawable(Customization.BACKGROUND_IMAGE));
         }
 
         if (Customization.HEADER_SHAPE != 0) {
@@ -290,6 +288,13 @@ public class ChatActivity extends AppCompatActivity {
 
         if (Utility.isNotNull(Customization.MESSAGE_HINT)) {
             binding.txtMessage.setHint(Customization.MESSAGE_HINT);
+        }
+
+        if(Customization.IS_ENABLED_ADMINS_ONLINE_STATUS){
+            binding.lblUserStatus.setVisibility(View.VISIBLE);
+        }else {
+            binding.lblUserStatus.setVisibility(View.GONE);
+
         }
 
 

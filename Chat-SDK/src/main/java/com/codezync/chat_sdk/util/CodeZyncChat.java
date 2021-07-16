@@ -82,111 +82,126 @@ public class CodeZyncChat {
 
 
     //customizations
-    public static void setEnabledNewMessageSound(Boolean isEnabledNewMessageSound) {
+    public void setEnabledNewMessageSound(Boolean isEnabledNewMessageSound) {
         Customization.IS_ENABLED_NEW_MESSAGE_SOUND = isEnabledNewMessageSound;
     }
 
-    public static void setEnabledMessageSeenStatus(Boolean isEnabledMessageSeenStatus) {
+    public void setEnabledMessageSeenStatus(Boolean isEnabledMessageSeenStatus) {
         Customization.IS_ENABLED_MESSAGE_SEEN_STATUS = isEnabledMessageSeenStatus;
     }
 
-    public static void setEnabledSenderIcon(Boolean isEnabledSenderIcon) {
+    public void setEnabledSenderIcon(Boolean isEnabledSenderIcon) {
         Customization.IS_ENABLED_SENDER_ICON = isEnabledSenderIcon;
     }
 
-    public static void setEnabledReceiverIcon(Boolean isEnabledReceiverIcon) {
+    public void setEnabledReceiverIcon(Boolean isEnabledReceiverIcon) {
         Customization.IS_ENABLED_RECEIVER_ICON = isEnabledReceiverIcon;
     }
 
-    public static void setEnabledSentDate(Boolean isEnabledSentDate) {
+    public void setEnabledSentDate(Boolean isEnabledSentDate) {
         Customization.IS_ENABLED_SENT_DATE = isEnabledSentDate;
     }
 
-    public static void setEnabledImageSending(Boolean isEnabledImageSending) {
+    public void setEnabledImageSending(Boolean isEnabledImageSending) {
         Customization.IS_ENABLED_IMAGE_SENDING = isEnabledImageSending;
     }
 
-    public static void setSendIcon(int sendIcon) {
+    public void setEnabledAdminsOnlineStatus(Boolean isEnabledOnlineStatus) {
+        Customization.IS_ENABLED_ADMINS_ONLINE_STATUS = isEnabledOnlineStatus;
+    }
+
+    public void setSendIcon(int sendIcon) {
         Customization.SEND_ICON = sendIcon;
     }
 
-    public static void setNewMessageSound(int newMessageSound) {
+    public void setNewMessageSound(int newMessageSound) {
         Customization.NEW_MESSAGE_SOUND = newMessageSound;
     }
 
-    public static void setSeenIcon(int seenIcon) {
+    public void setSeenIcon(int seenIcon) {
         Customization.SEEN_ICON = seenIcon;
     }
 
-    public static void setDeliveredIcon(int deliveredIcon) {
+    public void setDeliveredIcon(int deliveredIcon) {
         Customization.DELIVERED_ICON = deliveredIcon;
     }
 
-    public static void setBackgroundImage(int backgroundImage) {
+    public void setBackgroundImage(int backgroundImage) {
         Customization.BACKGROUND_IMAGE = backgroundImage;
     }
 
-    public static void setImagePickerIcon(int imagePickerIcon) {
+    public void setImagePickerIcon(int imagePickerIcon) {
         Customization.IMAGE_PICKER_ICON = imagePickerIcon;
     }
 
-    public static void setSenderIcon(int senderIcon) {
+    public void setSenderIcon(int senderIcon) {
         Customization.SENDER_ICON = senderIcon;
     }
 
-    public static void setReceiverIcon(int receiverIcon) {
+    public void setReceiverIcon(int receiverIcon) {
         Customization.RECEIVER_ICON = receiverIcon;
     }
 
-    public static void setSenderBackgroundColor(int senderBackgroundColor) {
+    public void setSenderBackgroundColor(int senderBackgroundColor) {
         Customization.SENDER_BACKGROUND_COLOR = senderBackgroundColor;
     }
 
-    public static void setReceiverBackgroundColor(int receiverBackgroundColor) {
+    public void setReceiverBackgroundColor(int receiverBackgroundColor) {
         Customization.RECEIVER_BACKGROUND_COLOR = receiverBackgroundColor;
     }
 
-    public static void setSenderBubble(int senderBubble) {
-        Customization.SENDER_BUBBLE = senderBubble;
+    public void setChatBubbles(int senderBubble, int receiverBubble) {
+        if (senderBubble <= 0 || receiverBubble <= 0) {
+            try {
+
+                throw new Exception(Constants.EMPTY_BUBBLE_ERROR_MESSAGE);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            Customization.SENDER_BUBBLE = senderBubble;
+            Customization.RECEIVER_BUBBLE = receiverBubble;
+
+        }
+
     }
 
-    public static void setReceiverBubble(int receiverBubble) {
-        Customization.RECEIVER_BUBBLE = receiverBubble;
-    }
 
-    public static void setSentMessageTextColor(int sentMessageTextColor) {
+    public void setSentMessageTextColor(int sentMessageTextColor) {
         Customization.SENT_MESSAGE_TEXT_COLOR = sentMessageTextColor;
     }
 
-    public static void setReceivedMessageTextColor(int receivedMessageTextColor) {
+    public void setReceivedMessageTextColor(int receivedMessageTextColor) {
         Customization.RECEIVED_MESSAGE_TEXT_COLOR = receivedMessageTextColor;
     }
 
-    public static void setSentMessageDeliveryTimeTextColor(int sentMessageDeliveryTimeTextColor) {
+    public void setSentMessageDeliveryTimeTextColor(int sentMessageDeliveryTimeTextColor) {
         Customization.SENT_MESSAGE_DELIVERY_TIME_TEXT_COLOR = sentMessageDeliveryTimeTextColor;
     }
 
-    public static void setReceivedMessageDeliveryTimeTextColor(int receivedMessageDeliveryTimeTextColor) {
+    public void setReceivedMessageDeliveryTimeTextColor(int receivedMessageDeliveryTimeTextColor) {
         Customization.RECEIVED_MESSAGE_DELIVERY_TIME_TEXT_COLOR = receivedMessageDeliveryTimeTextColor;
     }
 
-    public static void setHeaderColor(int headerColor) {
+    public void setHeaderColor(int headerColor) {
         Customization.HEADER_COLOR = headerColor;
     }
 
-    public static void setHeaderShape(int headerShape) {
+    public void setHeaderShape(int headerShape) {
         Customization.HEADER_SHAPE = headerShape;
     }
 
-    public static void setTitleTextColor(int titleTextColor) {
+    public void setTitleTextColor(int titleTextColor) {
         Customization.TITLE_TEXT_COLOR = titleTextColor;
     }
 
-    public static void setSubTitleTextColor(int subTitleTextColor) {
+    public void setSubTitleTextColor(int subTitleTextColor) {
         Customization.SUB_TITLE_TEXT_COLOR = subTitleTextColor;
     }
 
-    public static void setMessageHint(String messageHint) {
+    public void setMessageHint(String messageHint) {
         Customization.MESSAGE_HINT = messageHint;
     }
+
+
 }
