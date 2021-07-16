@@ -102,6 +102,21 @@ public class Utility {
 
     }
 
+    public static void loadImage(ImageView imageView, Context context, int  url, int placeHolderImage) {
+
+//        Glide.with(context).load(url)
+//                .asBitmap().centerCrop()
+//                .error(placeHolderImage)
+//                .placeholder(placeHolderImage)
+//                .into(imageView);
+
+
+            Picasso.with(context)
+                    .load(url).placeholder(placeHolderImage).error(placeHolderImage).into(imageView);
+
+
+    }
+
     public static String getCurrentTimestamp() {
         return DATE_FORMAT.format(new Date());
     }

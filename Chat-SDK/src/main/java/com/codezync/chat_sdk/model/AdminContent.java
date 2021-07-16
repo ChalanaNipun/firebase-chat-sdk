@@ -14,6 +14,10 @@ public class AdminContent {
     @Expose
     private String defaultMessage;
 
+    @SerializedName("chatIcon")
+    @Expose
+    private String chatIcon;
+
     public Sender getSender() {
         return sender;
     }
@@ -28,5 +32,13 @@ public class AdminContent {
 
     public void setDefaultMessage(String defaultMessage) {
         this.defaultMessage = defaultMessage;
+    }
+
+    public String getChatIcon() {
+        return chatIcon;
+    }
+
+    public void setChatIcon(String chatIcon) {
+        this.chatIcon = chatIcon;
     }
 }

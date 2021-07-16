@@ -15,6 +15,7 @@ import com.codezync.chat_sdk.R;
 import com.codezync.chat_sdk.databinding.LayoutChatItemV2Binding;
 import com.codezync.chat_sdk.model.Message;
 import com.codezync.chat_sdk.util.Constants;
+import com.codezync.chat_sdk.util.Customization;
 import com.codezync.chat_sdk.util.LogUtil;
 import com.codezync.chat_sdk.util.Utility;
 
@@ -102,23 +103,69 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             return;
         }
 
+
+        if (Customization.SENT_MESSAGE_TEXT_COLOR != 0) {
+            holder.binding.lblSentMessage.setTextColor(mActivity.getColor(Customization.SENT_MESSAGE_TEXT_COLOR));
+        }
+
+        if (Customization.SENT_MESSAGE_DELIVERY_TIME_TEXT_COLOR != 0) {
+            holder.binding.lblSentDate.setTextColor(mActivity.getColor(Customization.SENT_MESSAGE_DELIVERY_TIME_TEXT_COLOR));
+        }
+
+        if (Customization.RECEIVED_MESSAGE_TEXT_COLOR != 0) {
+            holder.binding.lblReceivedMessage.setTextColor(mActivity.getColor(Customization.RECEIVED_MESSAGE_TEXT_COLOR));
+        }
+
+        if (Customization.RECEIVED_MESSAGE_DELIVERY_TIME_TEXT_COLOR != 0) {
+            holder.binding.lblReceivedDate.setTextColor(mActivity.getColor(Customization.RECEIVED_MESSAGE_DELIVERY_TIME_TEXT_COLOR));
+        }
+
+        if (Customization.SENDER_BACKGROUND_COLOR != 0 && Customization.SENDER_BUBBLE == 0) {
+            holder.binding.cardSentMessage.setCardBackgroundColor(mActivity.getColor(Customization.SENDER_BACKGROUND_COLOR));
+        }
+
+        if (Customization.RECEIVER_BACKGROUND_COLOR != 0 && Customization.RECEIVER_BUBBLE == 0) {
+            holder.binding.cardReceivedMessage.setCardBackgroundColor(mActivity.getColor(Customization.RECEIVER_BACKGROUND_COLOR));
+        }
+
+
         if (message.isSentMessage(currentUserId)) {
 
-            Utility.loadImage(holder.binding.imgMy, mActivity, message.getSender().getImageUrl(), R.drawable.img_user_placeholder);
-            holder.binding.lblSentDate.setText(Utility.toDisplayDateFormat(message.getTimestamp()));
+            if (Customization.IS_ENABLED_SENDER_ICON) {
 
-           if(Constants.IS_ENABLED_MESSAGE_SEEN_STATUS){
-               holder.binding.imgSentMessageStatus.setVisibility(View.VISIBLE);
-           }else {
-               holder.binding.imgSentMessageStatus.setVisibility(View.GONE);
-           }
+                if (Customization.SENDER_ICON != 0) {
+                    Utility.loadImage(holder.binding.imgMy, mActivity, Customization.SENDER_ICON, R.drawable.img_user_placeholder);
+                } else {
+                    Utility.loadImage(holder.binding.imgMy, mActivity, message.getSender().getImageUrl(), R.drawable.img_user_placeholder);
+                }
 
-
-            if (isLastMessageSeen) {
-                holder.binding.imgSentMessageStatus.setImageDrawable(mActivity.getDrawable(R.drawable.ic_seen));
-            } else if (message.getStatus().equals(Constants.SEEN_STATUS)) {
-                holder.binding.imgSentMessageStatus.setImageDrawable(mActivity.getDrawable(R.drawable.ic_delivered));
+                holder.binding.imgMy.setVisibility(View.VISIBLE);
+            } else {
+                holder.binding.imgMy.setVisibility(View.GONE);
             }
+
+            if (Customization.IS_ENABLED_SENT_DATE) {
+                holder.binding.lblSentDate.setText(Utility.toDisplayDateFormat(message.getTimestamp()));
+                holder.binding.lblSentDate.setVisibility(View.VISIBLE);
+            } else {
+                holder.binding.lblSentDate.setVisibility(View.GONE);
+            }
+
+
+            if (Customization.IS_ENABLED_MESSAGE_SEEN_STATUS) {
+                holder.binding.imgSentMessageStatus.setVisibility(View.VISIBLE);
+
+                if (isLastMessageSeen) {
+                    holder.binding.imgSentMessageStatus.setImageDrawable(Customization.SEEN_ICON != 0 ? mActivity.getDrawable(Customization.SEEN_ICON) : mActivity.getDrawable(R.drawable.ic_seen));
+                } else if (message.getStatus().equals(Constants.SEEN_STATUS)) {
+                    holder.binding.imgSentMessageStatus.setImageDrawable(Customization.DELIVERED_ICON != 0 ? mActivity.getDrawable(Customization.DELIVERED_ICON) : mActivity.getDrawable(R.drawable.ic_delivered));
+                }
+
+
+            } else {
+                holder.binding.imgSentMessageStatus.setVisibility(View.GONE);
+            }
+
 
             if (message.getContentType().equals(Constants.TEXT_CONTENT_TYPE)) {
                 holder.binding.llSent.setVisibility(View.VISIBLE);
@@ -146,8 +193,26 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
         } else {
 
-            Utility.loadImage(holder.binding.imgSender, mActivity, message.getSender().getImageUrl(), R.drawable.img_user_placeholder);
-            holder.binding.lblReceivedDate.setText(Utility.toDisplayDateFormat(message.getTimestamp()));
+            if (Customization.IS_ENABLED_RECEIVER_ICON) {
+
+                if (Customization.RECEIVER_ICON != 0) {
+                    Utility.loadImage(holder.binding.imgSender, mActivity, Customization.RECEIVER_ICON, R.drawable.img_user_placeholder);
+                } else {
+                    Utility.loadImage(holder.binding.imgSender, mActivity, message.getSender().getImageUrl(), R.drawable.img_user_placeholder);
+                }
+
+                holder.binding.imgSender.setVisibility(View.VISIBLE);
+            } else {
+                holder.binding.imgSender.setVisibility(View.GONE);
+            }
+
+
+            if (Customization.IS_ENABLED_SENT_DATE) {
+                holder.binding.lblReceivedDate.setText(Utility.toDisplayDateFormat(message.getTimestamp()));
+                holder.binding.lblReceivedDate.setVisibility(View.VISIBLE);
+            } else {
+                holder.binding.lblReceivedDate.setVisibility(View.GONE);
+            }
 
             holder.binding.imgReceivedMessageStatus.setVisibility(View.GONE);
 

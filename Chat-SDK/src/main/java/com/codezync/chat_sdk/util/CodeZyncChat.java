@@ -41,8 +41,6 @@ public class CodeZyncChat {
             mUserId = chatRequest.getEmailOrPhoneNo();
             mName = chatRequest.getName();
             mImageUrl = chatRequest.getImageUrl();
-
-
         }
 
 
@@ -55,19 +53,6 @@ public class CodeZyncChat {
         mActivity.startActivity(intent);
     }
 
-    public void setEnableNewMessageSound(boolean isEnableNewMessageSound) {
-        Constants.IS_ENABLED_NEW_MESSAGE_SOUND = isEnableNewMessageSound;
-    }
-
-    public void setSendIcon(int drawableId) {
-        Constants.SEND_ICON = drawableId;
-
-    }
-
-    public void setEnableMessageSeenStatus(boolean isEnabled) {
-        Constants.IS_ENABLED_MESSAGE_SEEN_STATUS = isEnabled;
-
-    }
 
     public void OnMessageReceived(OnMessageReceivedListener listener) {
         messageResponseListener = listener;
@@ -93,5 +78,115 @@ public class CodeZyncChat {
 
     public static Activity getActivity() {
         return mActivity;
+    }
+
+
+    //customizations
+    public static void setEnabledNewMessageSound(Boolean isEnabledNewMessageSound) {
+        Customization.IS_ENABLED_NEW_MESSAGE_SOUND = isEnabledNewMessageSound;
+    }
+
+    public static void setEnabledMessageSeenStatus(Boolean isEnabledMessageSeenStatus) {
+        Customization.IS_ENABLED_MESSAGE_SEEN_STATUS = isEnabledMessageSeenStatus;
+    }
+
+    public static void setEnabledSenderIcon(Boolean isEnabledSenderIcon) {
+        Customization.IS_ENABLED_SENDER_ICON = isEnabledSenderIcon;
+    }
+
+    public static void setEnabledReceiverIcon(Boolean isEnabledReceiverIcon) {
+        Customization.IS_ENABLED_RECEIVER_ICON = isEnabledReceiverIcon;
+    }
+
+    public static void setEnabledSentDate(Boolean isEnabledSentDate) {
+        Customization.IS_ENABLED_SENT_DATE = isEnabledSentDate;
+    }
+
+    public static void setEnabledImageSending(Boolean isEnabledImageSending) {
+        Customization.IS_ENABLED_IMAGE_SENDING = isEnabledImageSending;
+    }
+
+    public static void setSendIcon(int sendIcon) {
+        Customization.SEND_ICON = sendIcon;
+    }
+
+    public static void setNewMessageSound(int newMessageSound) {
+        Customization.NEW_MESSAGE_SOUND = newMessageSound;
+    }
+
+    public static void setSeenIcon(int seenIcon) {
+        Customization.SEEN_ICON = seenIcon;
+    }
+
+    public static void setDeliveredIcon(int deliveredIcon) {
+        Customization.DELIVERED_ICON = deliveredIcon;
+    }
+
+    public static void setBackgroundImage(int backgroundImage) {
+        Customization.BACKGROUND_IMAGE = backgroundImage;
+    }
+
+    public static void setImagePickerIcon(int imagePickerIcon) {
+        Customization.IMAGE_PICKER_ICON = imagePickerIcon;
+    }
+
+    public static void setSenderIcon(int senderIcon) {
+        Customization.SENDER_ICON = senderIcon;
+    }
+
+    public static void setReceiverIcon(int receiverIcon) {
+        Customization.RECEIVER_ICON = receiverIcon;
+    }
+
+    public static void setSenderBackgroundColor(int senderBackgroundColor) {
+        Customization.SENDER_BACKGROUND_COLOR = senderBackgroundColor;
+    }
+
+    public static void setReceiverBackgroundColor(int receiverBackgroundColor) {
+        Customization.RECEIVER_BACKGROUND_COLOR = receiverBackgroundColor;
+    }
+
+    public static void setSenderBubble(int senderBubble) {
+        Customization.SENDER_BUBBLE = senderBubble;
+    }
+
+    public static void setReceiverBubble(int receiverBubble) {
+        Customization.RECEIVER_BUBBLE = receiverBubble;
+    }
+
+    public static void setSentMessageTextColor(int sentMessageTextColor) {
+        Customization.SENT_MESSAGE_TEXT_COLOR = sentMessageTextColor;
+    }
+
+    public static void setReceivedMessageTextColor(int receivedMessageTextColor) {
+        Customization.RECEIVED_MESSAGE_TEXT_COLOR = receivedMessageTextColor;
+    }
+
+    public static void setSentMessageDeliveryTimeTextColor(int sentMessageDeliveryTimeTextColor) {
+        Customization.SENT_MESSAGE_DELIVERY_TIME_TEXT_COLOR = sentMessageDeliveryTimeTextColor;
+    }
+
+    public static void setReceivedMessageDeliveryTimeTextColor(int receivedMessageDeliveryTimeTextColor) {
+        Customization.RECEIVED_MESSAGE_DELIVERY_TIME_TEXT_COLOR = receivedMessageDeliveryTimeTextColor;
+    }
+
+    public static void setHeaderColor(int headerColor) {
+        Customization.HEADER_COLOR = headerColor;
+    }
+
+    public static void setHeaderShape(int headerShape) {
+        Customization.HEADER_SHAPE = headerShape;
+    }
+
+    public static void setTitleTextColor(int titleTextColor) {
+        Customization.TITLE_TEXT_COLOR = titleTextColor;
+    }
+
+    public static void setSubTitleTextColor(int subTitleTextColor) {
+        Customization.SUB_TITLE_TEXT_COLOR = subTitleTextColor;
+    }
+
+    public static void setMessageHint(String messageHint) {
+        Customization.MESSAGE_HINT = messageHint;
     }
 }

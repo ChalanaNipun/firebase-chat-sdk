@@ -24,8 +24,6 @@ public class Constants {
     public static final String CHAT_REQUEST_ERROR_MESSAGE = "ChatRequest Cannot be null !";
     public static final String EMAIL_OR_PHONE_NO_ERROR_MESSAGE = "ChatRequest EmailOrPhoneNo field Cannot be empty !";
     public static final String MESSAGE_TONE_FILE_NAME = "notification_tone";
-    public static Boolean IS_ENABLED_NEW_MESSAGE_SOUND = false;
-    public static Boolean IS_ENABLED_MESSAGE_SEEN_STATUS = false;
-    public static int SEND_ICON = 0;
+
 //    public static final String ERROR_SENDING_INIT_MESSAGE = "Init message sending error ! contact developers !";
 }

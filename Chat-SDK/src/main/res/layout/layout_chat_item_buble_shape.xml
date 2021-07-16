@@ -25,22 +25,22 @@
                 android:src="@drawable/img_user_placeholder"
                 app:civ_border_color="@color/white"
                 app:civ_border_width="2dp"
+                android:layout_gravity="bottom"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_received_message"
+            <RelativeLayout
+                android:background="@drawable/chat_receiver_bubble"
+                android:id="@+id/rl_received_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="2dp"
                 android:elevation="5dp"
                 android:gravity="center|start"
-                android:padding="15dp"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="5dp">
+                android:padding="15dp">
 
                 <LinearLayout
                     android:id="@+id/ll_received_text"
@@ -116,7 +116,7 @@
                 <!--                    android:visibility="gone" />-->
 
 
-            </androidx.cardview.widget.CardView>
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -131,18 +131,16 @@
             android:visibility="visible">
 
 
-            <androidx.cardview.widget.CardView
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:elevation="5dp"
-                android:id="@+id/card_sent_message"
+                android:id="@+id/rl_sent_message"
+                android:background="@drawable/chat_sender_bubble"
                 android:gravity="center|end"
-                android:padding="10dp"
-                app:cardBackgroundColor="@color/chat_sender_bubble_color"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="5dp">
+                android:padding="10dp">
 
                 <LinearLayout
                     android:id="@+id/ll_sent_text"
@@ -251,7 +249,7 @@
                 </LinearLayout>
 
 
-            </androidx.cardview.widget.CardView>
+            </RelativeLayout>
 
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/img_my"

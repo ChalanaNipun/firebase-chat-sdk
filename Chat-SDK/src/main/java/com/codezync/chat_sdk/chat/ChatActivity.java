@@ -39,6 +39,7 @@ import com.codezync.chat_sdk.util.AlertType;
 import com.codezync.chat_sdk.util.CodeZyncChat;
 import com.codezync.chat_sdk.util.Constants;
 import com.codezync.chat_sdk.util.Converter;
+import com.codezync.chat_sdk.util.Customization;
 import com.codezync.chat_sdk.util.LogUtil;
 import com.codezync.chat_sdk.util.NotificationUtility;
 import com.codezync.chat_sdk.util.PathUtil;
@@ -166,20 +167,19 @@ public class ChatActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_chat);
         viewModel = new ViewModelProvider(this).get(FirebaseViewModel.class);
 
+
+        //UI Customizations
+        applyUICustomizations();
+
+
         adapter = new ChatAdapter(this, sender.getSenderId());
 
         viewModel.init(this, chatRequest);
         permissionManager = new PermissionManager(this);
 
-        int resID = getResources().getIdentifier(Constants.MESSAGE_TONE_FILE_NAME, "raw", getPackageName());
-        mediaPlayer = MediaPlayer.create(this, resID);
 
         if (getActionBar() != null) {
             getSupportActionBar().hide();
-        }
-
-        if (Constants.SEND_ICON != 0) {
-            binding.btnSend.setImageDrawable(getDrawable(Constants.SEND_ICON));
         }
 
 
@@ -243,6 +243,56 @@ public class ChatActivity extends AppCompatActivity {
         if (permissionManager.checkPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constants.ACTIVITY_RESULTS_READ_STORAGE)) {
             openImageChooser();
         }
+    }
+
+
+    private void applyUICustomizations() {
+        if (Customization.TITLE_TEXT_COLOR != 0) {
+            binding.lblUserName.setTextColor(getColor(Customization.TITLE_TEXT_COLOR));
+        }
+
+        if (Customization.SUB_TITLE_TEXT_COLOR != 0) {
+            binding.lblUserStatus.setTextColor(getColor(Customization.SUB_TITLE_TEXT_COLOR));
+        }
+
+        if (Customization.BACKGROUND_IMAGE != 0) {
+            binding.recyclerview.setBackground(getDrawable(Customization.BACKGROUND_IMAGE));
+        }
+
+        if (Customization.HEADER_SHAPE != 0) {
+            binding.llHeader.setBackground(getDrawable(Customization.HEADER_SHAPE));
+        } else if (Customization.HEADER_COLOR != 0) {
+            binding.llHeader.setBackgroundColor(getColor(Customization.HEADER_COLOR));
+        }
+
+        if (Customization.IS_ENABLED_IMAGE_SENDING) {
+            binding.btnImage.setVisibility(View.VISIBLE);
+
+            if (Customization.IMAGE_PICKER_ICON != 0) {
+                binding.btnImage.setBackground(getDrawable(Customization.IMAGE_PICKER_ICON));
+            }
+
+        } else {
+            binding.btnImage.setVisibility(View.GONE);
+        }
+
+
+        if (Customization.NEW_MESSAGE_SOUND != 0) {
+            mediaPlayer = MediaPlayer.create(this, Customization.NEW_MESSAGE_SOUND);
+        } else {
+            int resID = getResources().getIdentifier(Constants.MESSAGE_TONE_FILE_NAME, "raw", getPackageName());
+            mediaPlayer = MediaPlayer.create(this, resID);
+        }
+
+        if (Customization.SEND_ICON != 0) {
+            binding.btnSend.setImageDrawable(getDrawable(Customization.SEND_ICON));
+        }
+
+        if (Utility.isNotNull(Customization.MESSAGE_HINT)) {
+            binding.txtMessage.setHint(Customization.MESSAGE_HINT);
+        }
+
+
     }
 
 
@@ -407,7 +457,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onChanged(NewMessageModel messageModel) {
                 CodeZyncChat.setOnMessageReceived(messageModel);
-                if (Constants.IS_ENABLED_NEW_MESSAGE_SOUND) {
+                if (Customization.IS_ENABLED_NEW_MESSAGE_SOUND) {
                     playReceivedMessageSound();
                 }
             }
