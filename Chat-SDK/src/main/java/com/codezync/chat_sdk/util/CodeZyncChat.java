@@ -171,6 +171,10 @@ public class CodeZyncChat {
         Customization.SENT_MESSAGE_TEXT_COLOR = sentMessageTextColor;
     }
 
+    public void setHeaderHeight(int headerHeight) {
+        Customization.HEADER_HEIGHT = headerHeight;
+    }
+
     public void setReceivedMessageTextColor(int receivedMessageTextColor) {
         Customization.RECEIVED_MESSAGE_TEXT_COLOR = receivedMessageTextColor;
     }

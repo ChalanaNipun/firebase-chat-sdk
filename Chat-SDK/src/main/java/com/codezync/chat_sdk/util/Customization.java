@@ -28,8 +28,8 @@ public class Customization {
     public static int HEADER_SHAPE = 0;
     public static int TITLE_TEXT_COLOR = 0;
     public static int SUB_TITLE_TEXT_COLOR = 0;
+    public static int HEADER_HEIGHT = 0;
     public static String MESSAGE_HINT = "";
-
 
 
 }

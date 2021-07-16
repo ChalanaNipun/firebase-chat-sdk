@@ -176,11 +176,6 @@ public class ChatActivity extends AppCompatActivity {
         permissionManager = new PermissionManager(this);
 
 
-        if (getActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-
-
         progressBar = ProgressDialog.createProgressDialog(this);
 
         LinearLayoutManager linearLayoutManagerPreference = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
@@ -245,6 +240,18 @@ public class ChatActivity extends AppCompatActivity {
 
 
     private void applyUICustomizations() {
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        } else if (getActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
+
+        if (Customization.HEADER_HEIGHT >= 120) {
+            binding.llHeader.getLayoutParams().height = Customization.HEADER_HEIGHT;
+        }
+
         if (Customization.TITLE_TEXT_COLOR != 0) {
             binding.lblUserName.setTextColor(getColor(Customization.TITLE_TEXT_COLOR));
         }
@@ -290,9 +297,9 @@ public class ChatActivity extends AppCompatActivity {
             binding.txtMessage.setHint(Customization.MESSAGE_HINT);
         }
 
-        if(Customization.IS_ENABLED_ADMINS_ONLINE_STATUS){
+        if (Customization.IS_ENABLED_ADMINS_ONLINE_STATUS) {
             binding.lblUserStatus.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             binding.lblUserStatus.setVisibility(View.GONE);
 
         }
