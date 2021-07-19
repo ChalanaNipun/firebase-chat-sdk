@@ -161,6 +161,7 @@
                         android:src="@drawable/attachment_icon" />
 
                     <EditText
+
                         android:id="@+id/txt_message"
                         style="@style/RoundedEditTextStyle"
                         android:layout_width="0dp"
@@ -168,6 +169,7 @@
                         android:layout_weight="1"
                         android:hint="@string/message_hint"
                         android:maxLines="7"
+                        android:gravity="start|center_vertical"
                         android:minHeight="50dp"
                         android:paddingLeft="10dp"
                         android:textColor="@color/black" />

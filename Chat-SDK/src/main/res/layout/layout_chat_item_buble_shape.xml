@@ -5,6 +5,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:orientation="vertical">
 
 
@@ -12,9 +13,9 @@
             android:id="@+id/ll_received"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="60dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="60dp"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             android:visibility="visible">
@@ -24,23 +25,23 @@
                 android:id="@+id/img_sender"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
+                android:layout_gravity="bottom"
+                android:layout_marginEnd="10dp"
                 android:src="@drawable/img_user_placeholder"
                 app:civ_border_color="@color/white"
                 app:civ_border_width="2dp"
-                android:layout_gravity="bottom"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
             <RelativeLayout
-                android:background="@drawable/chat_receiver_bubble"
                 android:id="@+id/rl_received_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="2dp"
+                android:background="@drawable/chat_receiver_bubble"
                 android:elevation="5dp"
                 android:gravity="center|start">
 
@@ -48,29 +49,29 @@
                     android:id="@+id/ll_received_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="2dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginEnd="10dp"
                     android:orientation="vertical">
 
                     <TextView
-                        android:autoLink="web"
                         android:id="@+id/lbl_received_message"
                         style="@style/chatMessageTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:autoLink="web"
                         android:gravity="start"
                         android:text="@string/fetching_data"
                         android:textColor="@color/chat_receiver_text_color" />
 
                     <ozaydin.serkan.com.image_zoom_view.ImageViewZoom
                         android:id="@+id/img_received"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
                         android:layout_width="@dimen/chat_image_width"
                         android:layout_height="@dimen/chat_image_height"
                         android:layout_gravity="center"
                         android:layout_margin="10dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
                         android:src="@drawable/img_user_placeholder"
                         android:visibility="gone"
                         app:circle="false" />
@@ -79,9 +80,9 @@
                         android:id="@+id/ll_received_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginTop="5dp"
                         android:layout_gravity="right|bottom"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -99,7 +100,7 @@
                             android:layout_width="13dp"
                             android:layout_height="13dp"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginStart="5dp"
                             android:src="@drawable/ic_delivered"
                             android:visibility="gone" />
 
@@ -126,9 +127,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginLeft="60dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginStart="60dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
 
             android:orientation="horizontal"
@@ -136,13 +137,14 @@
 
 
             <RelativeLayout
+                android:id="@+id/rl_sent_message"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
-                android:elevation="5dp"
-                android:id="@+id/rl_sent_message"
+                android:layout_weight="1"
+                android:layoutDirection="locale"
                 android:background="@drawable/chat_sender_bubble"
+                android:elevation="5dp"
                 android:gravity="center|end">
 
                 <LinearLayout
@@ -150,36 +152,37 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="2dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/lbl_sent_message"
-                        android:autoLink="web"
                         style="@style/chatMessageTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="end"
                         android:layout_gravity="end"
+                        android:autoLink="web"
+                        android:gravity="end"
                         android:text="@string/fetching_data"
                         android:textColor="@color/chat_sender_text_color" />
 
 
                     <RelativeLayout
-                        android:layout_marginTop="10dp"
+                        android:minWidth="120dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
 
                         <ozaydin.serkan.com.image_zoom_view.ImageViewZoom
                             android:id="@+id/img_sent"
-                            android:adjustViewBounds="true"
-                            android:scaleType="fitCenter"
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/chat_image_height"
-                            android:layout_gravity="center"
                             android:layout_centerHorizontal="true"
+                            android:layout_gravity="center"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
                             android:src="@drawable/img_user_placeholder"
                             android:visibility="visible"
                             app:circle="false" />
@@ -202,7 +205,7 @@
                                 android:id="@+id/line_progress"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                android:layout_marginLeft="3dp"
+                                android:layout_marginStart="3dp"
                                 android:layout_marginTop="3dp"
                                 app:line_width="3dp"
                                 app:progress_background_color="@color/grey"
@@ -225,12 +228,12 @@
 
                         <TextView
                             android:id="@+id/lbl_sent_date"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginTop="5dp"
                             style="@style/chatDeliveryTextStyle"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:gravity="end"
                             android:text="@string/fetching_data"
@@ -241,7 +244,7 @@
                             android:layout_width="13dp"
                             android:layout_height="13dp"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginStart="5dp"
                             android:src="@drawable/ic_delivered" />
 
                     </LinearLayout>
@@ -256,7 +259,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="bottom"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:src="@drawable/img_user_placeholder"
                 android:visibility="visible"
                 app:civ_border_color="@color/white"

@@ -19,7 +19,7 @@
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:src="@drawable/img_user_placeholder"
                 app:civ_border_color="@color/white"
                 app:civ_border_width="2dp"
@@ -43,14 +43,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="4dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:background="@drawable/rectangle_loading_shape"
                         android:gravity="start"
                         android:textColor="@color/chat_receiver_text_color" />
@@ -72,7 +72,7 @@
                     android:layout_height="20sp"
                     android:layout_gravity="right|bottom"
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="horizontal">
 
@@ -90,7 +90,7 @@
                         android:layout_width="13dp"
                         android:layout_height="13dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:src="@drawable/ic_delivered_loading" />
 
                 </LinearLayout>
@@ -123,9 +123,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="2dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="4dp"
                     android:orientation="vertical">
 
@@ -133,7 +133,7 @@
                         style="@style/chatMessageTextStyle"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:background="@drawable/rectangle_loading_shape"
                         android:gravity="end"
                         android:textColor="@color/chat_sender_text_color" />
@@ -155,9 +155,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:layout_gravity="right|bottom"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="horizontal">
 
@@ -174,7 +174,7 @@
                         android:layout_width="13dp"
                         android:layout_height="13dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:src="@drawable/ic_seen_loading" />
 
                 </LinearLayout>
@@ -185,7 +185,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="bottom"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:src="@drawable/img_user_placeholder"
                 android:visibility="gone"
                 app:civ_border_color="@color/white"
@@ -208,7 +208,7 @@
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:src="@drawable/img_user_placeholder"
                 app:civ_border_color="@color/white"
                 app:civ_border_width="2dp"
@@ -232,14 +232,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="4dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="270dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:background="@drawable/rectangle_loading_shape"
                         android:gravity="start"
                         android:textColor="@color/chat_receiver_text_color" />
@@ -261,7 +261,7 @@
                     android:layout_height="20sp"
                     android:layout_gravity="right|bottom"
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="horizontal">
 
@@ -279,7 +279,7 @@
                         android:layout_width="13dp"
                         android:layout_height="13dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:src="@drawable/ic_delivered_loading" />
 
                 </LinearLayout>
@@ -298,7 +298,7 @@
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:src="@drawable/img_user_placeholder"
                 app:civ_border_color="@color/white"
                 app:civ_border_width="2dp"
@@ -322,14 +322,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="4dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:background="@drawable/rectangle_loading_shape"
                         android:gravity="start"
                         android:textColor="@color/chat_receiver_text_color" />
@@ -351,7 +351,7 @@
                     android:layout_height="20sp"
                     android:layout_gravity="right|bottom"
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="horizontal">
 
@@ -369,7 +369,7 @@
                         android:layout_width="13dp"
                         android:layout_height="13dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:src="@drawable/ic_delivered_loading" />
 
                 </LinearLayout>
@@ -402,9 +402,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="2dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="4dp"
                     android:orientation="vertical">
 
@@ -412,7 +412,7 @@
                         style="@style/chatMessageTextStyle"
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:background="@drawable/rectangle_loading_shape"
                         android:gravity="end"
                         android:textColor="@color/chat_sender_text_color" />
@@ -434,9 +434,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:layout_gravity="right|bottom"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="horizontal">
 
@@ -453,7 +453,7 @@
                         android:layout_width="13dp"
                         android:layout_height="13dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:src="@drawable/ic_seen_loading" />
 
                 </LinearLayout>
@@ -464,7 +464,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="bottom"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:src="@drawable/img_user_placeholder"
                 android:visibility="gone"
                 app:civ_border_color="@color/white"
@@ -487,7 +487,7 @@
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:src="@drawable/img_user_placeholder"
                 app:civ_border_color="@color/white"
                 app:civ_border_width="2dp"
@@ -511,14 +511,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="4dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:background="@drawable/rectangle_loading_shape"
                         android:gravity="start"
                         android:textColor="@color/chat_receiver_text_color" />
@@ -540,7 +540,7 @@
                     android:layout_height="20sp"
                     android:layout_gravity="right|bottom"
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="horizontal">
 
@@ -558,7 +558,7 @@
                         android:layout_width="13dp"
                         android:layout_height="13dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:src="@drawable/ic_delivered_loading" />
 
                 </LinearLayout>
@@ -577,7 +577,7 @@
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:src="@drawable/img_user_placeholder"
                 app:civ_border_color="@color/white"
                 app:civ_border_width="2dp"
@@ -601,14 +601,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="4dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="270dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:background="@drawable/rectangle_loading_shape"
                         android:gravity="start"
                         android:textColor="@color/chat_receiver_text_color" />
@@ -630,7 +630,7 @@
                     android:layout_height="20sp"
                     android:layout_gravity="right|bottom"
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="horizontal">
 
@@ -648,7 +648,7 @@
                         android:layout_width="13dp"
                         android:layout_height="13dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:src="@drawable/ic_delivered_loading" />
 
                 </LinearLayout>
@@ -681,9 +681,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="2dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="4dp"
                     android:orientation="vertical">
 
@@ -691,7 +691,7 @@
                         style="@style/chatMessageTextStyle"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:background="@drawable/rectangle_loading_shape"
                         android:gravity="end"
                         android:textColor="@color/chat_sender_text_color" />
@@ -713,9 +713,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:layout_gravity="right|bottom"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="horizontal">
 
@@ -732,7 +732,7 @@
                         android:layout_width="13dp"
                         android:layout_height="13dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:src="@drawable/ic_seen_loading" />
 
                 </LinearLayout>
@@ -743,7 +743,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="bottom"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:src="@drawable/img_user_placeholder"
                 android:visibility="gone"
                 app:civ_border_color="@color/white"
@@ -780,9 +780,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="2dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="4dp"
                     android:orientation="vertical">
 
@@ -790,7 +790,7 @@
                         style="@style/chatMessageTextStyle"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:background="@drawable/rectangle_loading_shape"
                         android:gravity="end"
                         android:textColor="@color/chat_sender_text_color" />
@@ -812,9 +812,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:layout_gravity="right|bottom"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="horizontal">
 
@@ -831,7 +831,7 @@
                         android:layout_width="13dp"
                         android:layout_height="13dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:src="@drawable/ic_seen_loading" />
 
                 </LinearLayout>
@@ -842,7 +842,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="bottom"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:src="@drawable/img_user_placeholder"
                 android:visibility="gone"
                 app:civ_border_color="@color/white"
@@ -865,7 +865,7 @@
 <!--            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"-->
 <!--                android:layout_width="40dp"-->
 <!--                android:layout_height="40dp"-->
-<!--                android:layout_marginLeft="10dp"-->
+<!--                android:layout_marginStart="10dp"-->
 <!--                android:src="@drawable/img_user_placeholder"-->
 <!--                app:civ_border_color="@color/white"-->
 <!--                app:civ_border_width="2dp"-->
@@ -889,14 +889,14 @@
 <!--                    android:layout_width="wrap_content"-->
 <!--                    android:layout_height="wrap_content"-->
 <!--                    android:layout_marginTop="2dp"-->
-<!--                    android:layout_marginRight="10dp"-->
+<!--                    android:layout_marginEnd="10dp"-->
 <!--                    android:layout_marginBottom="4dp"-->
 <!--                    android:orientation="vertical">-->
 
 <!--                    <TextView-->
 <!--                        android:layout_width="150dp"-->
 <!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginLeft="10dp"-->
+<!--                        android:layout_marginStart="10dp"-->
 <!--                        android:background="@drawable/rectangle_loading_shape"-->
 <!--                        android:gravity="start"-->
 <!--                        android:textColor="@color/chat_receiver_text_color" />-->
@@ -918,7 +918,7 @@
 <!--                    android:layout_height="20sp"-->
 <!--                    android:layout_gravity="right|bottom"-->
 <!--                    android:layout_marginTop="25dp"-->
-<!--                    android:layout_marginRight="5dp"-->
+<!--                    android:layout_marginEnd="5dp"-->
 <!--                    android:layout_marginBottom="5dp"-->
 <!--                    android:orientation="horizontal">-->
 
@@ -936,7 +936,7 @@
 <!--                        android:layout_width="13dp"-->
 <!--                        android:layout_height="13dp"-->
 <!--                        android:layout_gravity="center_vertical"-->
-<!--                        android:layout_marginLeft="5dp"-->
+<!--                        android:layout_marginStart="5dp"-->
 <!--                        android:src="@drawable/ic_delivered_loading" />-->
 
 <!--                </LinearLayout>-->

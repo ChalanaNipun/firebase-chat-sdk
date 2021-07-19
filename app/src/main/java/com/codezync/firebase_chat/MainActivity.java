@@ -3,6 +3,7 @@ package com.codezync.firebase_chat;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LifecycleOwner;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -10,6 +11,8 @@ import com.codezync.chat_sdk.model.ChatRequest;
 import com.codezync.chat_sdk.model.NewMessageModel;
 import com.codezync.chat_sdk.util.CodeZyncChat;
 import com.codezync.chat_sdk.util.OnMessageReceivedListener;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +22,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Locale locale= new Locale("ar");
+        Configuration configuration = getResources().getConfiguration();
+        configuration.setLayoutDirection(locale);
+        configuration.setLocale(locale);
+        getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
+
         setContentView(R.layout.activity_main);
 
         lifecycleOwner = this;
@@ -69,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
             chat.setHeaderShape(R.drawable.header_new);
             chat.setBackgroundImage(R.drawable.gb);
             chat.setHeaderHeight(130);
-//            chat.setChatBubbles(R.drawable.bubble_sent,R.drawable.bubble_received);
-//            chat.setReceivedMessageTextColor(R.color.white);
+            chat.setChatBubbles(R.drawable.bubble_sent,R.drawable.bubble_received,true);
+            chat.setReceivedMessageTextColor(R.color.white);
 
 
         } catch (Exception e) {
