@@ -150,7 +150,7 @@ public class CodeZyncChat {
         Customization.RECEIVER_BACKGROUND_COLOR = receiverBackgroundColor;
     }
 
-    public void setChatBubbles(int senderBubble, int receiverBubble, boolean isRTL) {
+    public void setChatBubbles(int senderBubble, int receiverBubble) {
         if (senderBubble <= 0 || receiverBubble <= 0) {
             try {
 
@@ -159,13 +159,10 @@ public class CodeZyncChat {
                 e.printStackTrace();
             }
         } else {
-           if(isRTL){
-               Customization.SENDER_BUBBLE = receiverBubble;
-               Customization.RECEIVER_BUBBLE = senderBubble;
-           }else {
-               Customization.SENDER_BUBBLE = senderBubble;
-               Customization.RECEIVER_BUBBLE = receiverBubble;
-           }
+
+            Customization.SENDER_BUBBLE = senderBubble;
+            Customization.RECEIVER_BUBBLE = receiverBubble;
+
 
         }
 

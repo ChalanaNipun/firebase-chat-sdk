@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             chat.setHeaderShape(R.drawable.header_new);
             chat.setBackgroundImage(R.drawable.gb);
             chat.setHeaderHeight(130);
-            chat.setChatBubbles(R.drawable.bubble_sent,R.drawable.bubble_received,true);
+            chat.setChatBubbles(R.drawable.bubble_sent,R.drawable.bubble_received);
             chat.setReceivedMessageTextColor(R.color.white);
 
 
