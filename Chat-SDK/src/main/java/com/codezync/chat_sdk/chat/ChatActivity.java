@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -173,7 +174,6 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void init() {
 
         //You can find all the below details in the google-services.json file, NOTE: All details are fake and random created API keys, please use your in the downloaded file.
@@ -284,9 +284,15 @@ public class ChatActivity extends AppCompatActivity {
             binding.lblUserStatus.setTextColor(getColor(Customization.SUB_TITLE_TEXT_COLOR));
         }
 
+
         if (Customization.BACKGROUND_IMAGE != 0) {
-            binding.llMain.setBackground(getDrawable(Customization.BACKGROUND_IMAGE));
+            if (Build.VERSION.SDK_INT >=Build.VERSION_CODES.LOLLIPOP) {
+                binding.llMain.setBackground(getDrawable(Customization.BACKGROUND_IMAGE));
+            } else {
+                binding.llMain.setBackgroundDrawable(ContextCompat.getDrawable(ChatActivity.this, Customization.BACKGROUND_IMAGE) );
+            }
         }
+
 
         if (Customization.HEADER_SHAPE != 0) {
             binding.llHeader.setBackground(getDrawable(Customization.HEADER_SHAPE));
@@ -327,9 +333,6 @@ public class ChatActivity extends AppCompatActivity {
             binding.lblUserStatus.setVisibility(View.GONE);
 
         }
-
-
-
 
 
     }

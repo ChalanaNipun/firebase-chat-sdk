@@ -41,8 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="2dp"
+                style="@style/receivedBubbleStyle"
                 android:background="@drawable/chat_receiver_bubble"
-                android:elevation="5dp"
                 android:gravity="center|start">
 
                 <LinearLayout
@@ -135,13 +135,13 @@
 
 
             <RelativeLayout
+                style="@style/sentBubbleStyle"
                 android:id="@+id/rl_sent_message"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/chat_sender_bubble"
-                android:elevation="5dp"
                 android:gravity="center|end"
                 android:layoutDirection="locale">
 
