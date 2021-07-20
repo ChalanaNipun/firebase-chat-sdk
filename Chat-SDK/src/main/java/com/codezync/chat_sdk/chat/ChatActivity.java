@@ -329,6 +329,9 @@ public class ChatActivity extends AppCompatActivity {
         }
 
 
+
+
+
     }
 
 
@@ -509,7 +512,11 @@ public class ChatActivity extends AppCompatActivity {
         viewModel.adminContentMutableLiveData.observe(this, new Observer<AdminSession>() {
             @Override
             public void onChanged(AdminSession adminSession) {
-                binding.lblUserName.setText(adminSession.getAdminContent().getSender().getName());
+                if (Utility.isNotNull(Customization.TITLE)) {
+                    binding.lblUserName.setText(Customization.TITLE);
+                } else {
+                    binding.lblUserName.setText(adminSession.getAdminContent().getSender().getName());
+                }
                 Utility.loadImage(binding.imgAdmin, ChatActivity.this, adminSession.getAdminContent().getSender().getImageUrl(), R.drawable.img_pic_placeholder);
             }
         });

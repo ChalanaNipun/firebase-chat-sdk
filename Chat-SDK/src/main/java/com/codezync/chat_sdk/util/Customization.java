@@ -30,6 +30,7 @@ public class Customization {
     public static int SUB_TITLE_TEXT_COLOR = 0;
     public static int HEADER_HEIGHT = 0;
     public static String MESSAGE_HINT = "";
+    public static String TITLE = "";
 //    public static boolean IS_RTL = false;
 
 

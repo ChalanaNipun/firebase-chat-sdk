@@ -55,12 +55,10 @@
 
                     <TextView
                         android:id="@+id/lbl_received_message"
-                        style="@style/chatMessageTextStyle"
+                        style="@style/sentMessageTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
                         android:autoLink="web"
-                        android:gravity="start"
                         android:text="@string/fetching_data"
                         android:textColor="@color/chat_receiver_text_color" />
 
@@ -162,15 +160,12 @@
 
                     <TextView
                         android:id="@+id/lbl_sent_message"
-                        style="@style/chatMessageTextStyle"
+                        style="@style/receivedMessageTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:layout_marginStart="10dp"
                         android:autoLink="web"
-                        android:gravity="end"
                         android:text="@string/fetching_data"
-                        android:textColor="@color/chat_sender_text_color"
                         android:visibility="gone" />
 
 

@@ -1,7 +1,6 @@
 <resources>
 
 
-
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@null</item>
@@ -28,9 +27,20 @@
     </style>
 
 
-    <style name="chatMessageTextStyle">
+    <style name="sentMessageTextStyle">
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">normal</item>
+        <item name="android:gravity">start</item>
+        <item name="android:textColor">@color/chat_sender_text_color</item>
+        <item name="android:layout_marginStart">10dp</item>
+    </style>
+
+    <style name="receivedMessageTextStyle">
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:gravity">end</item>
+        <item name="android:textColor">@color/chat_sender_text_color</item>
     </style>
 
     <style name="emptyChatMessageStyle">
@@ -63,5 +73,21 @@
         <item name="android:textStyle">italic</item>
     </style>
 
+    <style name="headerImageStyle">
+        <item name="android:height">45dp</item>
+        <item name="android:width">45dp</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="bottomStyle">
+        <item name="android:background">@drawable/footer_shape</item>
+        <item name="android:elevation">15dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
 
 </resources>
