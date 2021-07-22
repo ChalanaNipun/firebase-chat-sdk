@@ -13,6 +13,8 @@ import com.codezync.chat_sdk.R;
 import com.codezync.chat_sdk.databinding.LayoutChatItemBubleShapeBinding;
 import com.codezync.chat_sdk.databinding.LayoutChatItemV2Binding;
 import com.codezync.chat_sdk.model.Message;
+import com.codezync.chat_sdk.model.Sender;
+import com.codezync.chat_sdk.util.CodeZyncChat;
 import com.codezync.chat_sdk.util.Constants;
 import com.codezync.chat_sdk.util.Customization;
 import com.codezync.chat_sdk.util.LogUtil;
@@ -36,6 +38,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private String currentUserId;
     private com.dinuscxj.progressbar.CircleProgressBar progressBar;
     private boolean isLastMessageSeen;
+    private Sender sender;
 
 
     public void setLastMessageSeen(boolean lastMessageSeen) {
@@ -43,11 +46,12 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         notifyDataSetChanged();
     }
 
-    public ChatAdapter(Activity mActivity, String currentUserId) {
+    public ChatAdapter(Activity mActivity, Sender sender) {
         LogUtil.debug(TAG, "ChatAdapter");
         this.messageList = new ArrayList<>();
         this.mActivity = mActivity;
-        this.currentUserId = currentUserId;
+        this.sender = sender;
+        this.currentUserId = sender.getSenderId();
     }
 
 
@@ -145,8 +149,14 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                     if (Customization.SENDER_ICON != 0) {
                         Utility.loadImage(holder.binding.imgMy, mActivity, Customization.SENDER_ICON, R.drawable.img_user_placeholder);
+                        holder.binding.lblSenderFLatter.setVisibility(View.GONE);
+                    } else if (Utility.isNotNull(CodeZyncChat.getSender().getImageUrl())) {
+                        Utility.loadImage(holder.binding.imgMy, mActivity, CodeZyncChat.getSender().getImageUrl(), R.drawable.img_user_placeholder);
+                        holder.binding.lblSenderFLatter.setVisibility(View.GONE);
                     } else {
-                        Utility.loadImage(holder.binding.imgMy, mActivity, message.getSender().getImageUrl(), R.drawable.img_user_placeholder);
+                        Utility.loadImage(holder.binding.imgMy, mActivity, R.drawable.img_circle, R.drawable.img_circle);
+                        holder.binding.lblSenderFLatter.setVisibility(View.VISIBLE);
+                        holder.binding.lblSenderFLatter.setText(sender.getName().substring(0,1));
                     }
 
                     holder.binding.imgMy.setVisibility(View.VISIBLE);
@@ -283,10 +293,22 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                 if (Customization.IS_ENABLED_SENDER_ICON) {
 
+//                    if (Customization.SENDER_ICON != 0) {
+//                        Utility.loadImage(holder.binding.imgMy, mActivity, Customization.SENDER_ICON, R.drawable.img_user_placeholder);
+//                    } else {
+//                        Utility.loadImage(holder.binding.imgMy, mActivity, message.getSender().getImageUrl(), R.drawable.img_user_placeholder);
+//                    }
+
                     if (Customization.SENDER_ICON != 0) {
                         Utility.loadImage(holder.binding.imgMy, mActivity, Customization.SENDER_ICON, R.drawable.img_user_placeholder);
+                        holder.binding.lblSenderFLatter.setVisibility(View.GONE);
+                    } else if (Utility.isNotNull(CodeZyncChat.getSender().getImageUrl())) {
+                        Utility.loadImage(holder.binding.imgMy, mActivity, CodeZyncChat.getSender().getImageUrl(), R.drawable.img_user_placeholder);
+                        holder.binding.lblSenderFLatter.setVisibility(View.GONE);
                     } else {
-                        Utility.loadImage(holder.binding.imgMy, mActivity, message.getSender().getImageUrl(), R.drawable.img_user_placeholder);
+                        Utility.loadImage(holder.binding.imgMy, mActivity, R.drawable.img_circle, R.drawable.img_circle);
+                        holder.binding.lblSenderFLatter.setVisibility(View.VISIBLE);
+                        holder.binding.lblSenderFLatter.setText(sender.getName().substring(0,1));
                     }
 
                     holder.binding.imgMy.setVisibility(View.VISIBLE);
@@ -386,8 +408,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     }
-
-
 
 
     public void setUploadingImageProgress(double progress) {

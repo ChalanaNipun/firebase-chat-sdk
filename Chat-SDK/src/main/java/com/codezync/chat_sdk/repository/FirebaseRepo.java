@@ -115,12 +115,16 @@ public class FirebaseRepo {
                         if (task.isSuccessful()) {
                             boolean isFound = false;
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                if (document.getData().get("status").equals(Constants.OPEN_STATUS)) {
-                                    isFound = true;
-                                    SessionResponse response = (SessionResponse) Utility.stringToObject(new Gson().toJson(document.getData()), SessionResponse.class);
-                                    sessionResponse = response;
-                                    listener.onSuccessResponse(new OpenChatResponse(document.getId(), response));
-                                    break;
+                                try {
+                                    if (document.getData().get("status").equals(Constants.OPEN_STATUS)) {
+                                        isFound = true;
+                                        SessionResponse response = (SessionResponse) Utility.stringToObject(new Gson().toJson(document.getData()), SessionResponse.class);
+                                        sessionResponse = response;
+                                        listener.onSuccessResponse(new OpenChatResponse(document.getId(), response));
+                                        break;
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
                                 }
                             }
 
@@ -155,9 +159,9 @@ public class FirebaseRepo {
 
                             // listener.onSuccessResponse(true);
 
-                           if(!message.getStatus().equals(Constants.DEFAULT_MESSAGE_STATUS)){
-                               updateContent(message, listener, false);
-                           }
+                            if (!message.getStatus().equals(Constants.DEFAULT_MESSAGE_STATUS)) {
+                                updateContent(message, listener, false);
+                            }
 
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -198,13 +202,12 @@ public class FirebaseRepo {
     private void updateContent(Message message, OnNetworkResponseListener listener, boolean isFirstMessage) {
 
         if (isFirstMessage) {
-            ContentData contentData = new ContentData(chatRequest, message, true, false, false, Constants.OPEN_STATUS,"");
+            ContentData contentData = new ContentData(chatRequest, message, true, false, false, Constants.OPEN_STATUS, "");
             updateLastMessageContents(contentData, listener);
         } else {
             updateLastMessage(message, listener);
         }
     }
-
 
 
     public void updateLastMessage(Message message, String documentId, OnNetworkResponseListener listener) {

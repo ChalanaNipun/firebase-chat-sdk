@@ -100,4 +100,13 @@
         <item name="android:paddingRight">10dp</item>
     </style>
 
+
+    <style name="senderFirstLatterStyle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+
+        <item name="android:textColor">@color/chat_header_color</item>
+    </style>
+
 </resources>

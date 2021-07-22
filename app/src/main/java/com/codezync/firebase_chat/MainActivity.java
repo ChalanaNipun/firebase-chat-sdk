@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         request.setPhoneNo("0716359376");
         request.setName("Chalana Nupun");
         request.setDeviceName("S9+");
-        request.setImageUrl("https://i.ibb.co/Hx4RmGK/me.png");
+//        request.setImageUrl("https://i.ibb.co/Hx4RmGK/me.png");
         request.setPlatform("Android");
         try {
             chat = CodeZyncChat.init(this, request);

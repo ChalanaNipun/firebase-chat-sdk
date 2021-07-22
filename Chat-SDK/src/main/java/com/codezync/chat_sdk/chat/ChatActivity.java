@@ -193,7 +193,7 @@ public class ChatActivity extends AppCompatActivity {
         applyUICustomizations();
 
 
-        adapter = new ChatAdapter(this, sender.getSenderId());
+        adapter = new ChatAdapter(this, sender);
 
 
         viewModel.init(this, chatRequest);
