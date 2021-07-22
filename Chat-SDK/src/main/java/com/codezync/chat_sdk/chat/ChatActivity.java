@@ -286,10 +286,10 @@ public class ChatActivity extends AppCompatActivity {
 
 
         if (Customization.BACKGROUND_IMAGE != 0) {
-            if (Build.VERSION.SDK_INT >=Build.VERSION_CODES.LOLLIPOP) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 binding.llMain.setBackground(getDrawable(Customization.BACKGROUND_IMAGE));
             } else {
-                binding.llMain.setBackgroundDrawable(ContextCompat.getDrawable(ChatActivity.this, Customization.BACKGROUND_IMAGE) );
+                binding.llMain.setBackgroundDrawable(ContextCompat.getDrawable(ChatActivity.this, Customization.BACKGROUND_IMAGE));
             }
         }
 
@@ -515,8 +515,8 @@ public class ChatActivity extends AppCompatActivity {
         viewModel.adminContentMutableLiveData.observe(this, new Observer<AdminSession>() {
             @Override
             public void onChanged(AdminSession adminSession) {
-                if (Utility.isNotNull(Customization.TITLE)) {
-                    binding.lblUserName.setText(Customization.TITLE);
+                if (Utility.isNotNull(getString(R.string.chat_title))) {
+                    binding.lblUserName.setText(R.string.chat_title);
                 } else {
                     binding.lblUserName.setText(adminSession.getAdminContent().getSender().getName());
                 }

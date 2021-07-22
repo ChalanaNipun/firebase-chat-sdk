@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Chalana</string>
     <string name="no_internet_message">No Internet Connection !</string>
-    <string name="chat_title">Chat</string>
+    <string name="chat_title">TmDone Customer Care</string>
     <string name="fetching_data">fetching</string>
     <string name="delivered">delivered</string>
     <string name="message_hint">Type your message here...</string>

@@ -210,7 +210,5 @@ public class CodeZyncChat {
     }
 
 
-    public void setTitle(String title){
-        Customization.TITLE = title;
-    }
+
 }
