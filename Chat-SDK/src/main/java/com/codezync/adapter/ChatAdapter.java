@@ -97,8 +97,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (viewType == TYPE_DEFAULT_LAYOUT) {
             LayoutChatItemV2Binding binding =
                     LayoutChatItemV2Binding.inflate(layoutInflater, parent, false);
+            LogUtil.debug(TAG,"Default bubble");
             return new VHDefaultChat(binding);
         } else {
+            LogUtil.debug(TAG,"Customized bubble");
             LayoutChatItemBubleShapeBinding binding =
                     LayoutChatItemBubleShapeBinding.inflate(layoutInflater, parent, false);
             return new VHCustomizedChat(binding);

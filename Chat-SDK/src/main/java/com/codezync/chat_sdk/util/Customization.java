@@ -8,6 +8,10 @@ public class Customization {
     public static Boolean IS_ENABLED_SENT_DATE = true;
     public static Boolean IS_ENABLED_IMAGE_SENDING = true;
     public static Boolean IS_ENABLED_ADMINS_ONLINE_STATUS = true;
+    public static Boolean IS_ENABLED_LOADING_ANIMATION = true;
+    public static Boolean IS_ENABLED_EMPTY_CHAT_ANIMATION = true;
+    public static Boolean IS_ENABLED_CHAT_END_ANIMATION = true;
+
     public static int SEND_ICON = 0;
     public static int NEW_MESSAGE_SOUND = 0;
     public static int SEEN_ICON = 0;
@@ -30,7 +34,10 @@ public class Customization {
     public static int SUB_TITLE_TEXT_COLOR = 0;
     public static int HEADER_HEIGHT = 0;
     public static String MESSAGE_HINT = "";
+    public static String EMPTY_CHAT_ANIMATION = "";
+    public static String CHAT_END_ANIMATION = "";
 //    public static boolean IS_RTL = false;
+
 
 
 }

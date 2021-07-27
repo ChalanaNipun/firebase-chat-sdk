@@ -209,6 +209,26 @@ public class CodeZyncChat {
         Customization.MESSAGE_HINT = messageHint;
     }
 
+    public void setEnabledLoadingAnimation(boolean isEnable) {
+        Customization.IS_ENABLED_LOADING_ANIMATION = isEnable;
+    }
 
+
+    public  void setEnabledEmptyChatAnimation(Boolean isEnabledEmptyChatAnimation) {
+        Customization.IS_ENABLED_EMPTY_CHAT_ANIMATION = isEnabledEmptyChatAnimation;
+    }
+
+
+    public  void setEnabledChatEndAnimation(Boolean isEnabledChatEndAnimation) {
+        Customization.IS_ENABLED_CHAT_END_ANIMATION = isEnabledChatEndAnimation;
+    }
+
+    public  void setEmptyChatAnimation(String emptyChatAnimationFileNameWithExtension) {
+        Customization.EMPTY_CHAT_ANIMATION = emptyChatAnimationFileNameWithExtension;
+    }
+
+    public  void setChatEndAnimation(String chatEndAnimationFileNameWithExtension) {
+        Customization.CHAT_END_ANIMATION = chatEndAnimationFileNameWithExtension;
+    }
 
 }

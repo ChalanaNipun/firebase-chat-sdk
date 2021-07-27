@@ -107,7 +107,7 @@
 
                     <TextView
                         android:id="@+id/lbl_sent_message"
-                        style="@style/sentMessageTextStyle"
+                        style="@style/receiveMessageTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"

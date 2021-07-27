@@ -23,11 +23,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Locale locale= new Locale("ar");
-        Configuration configuration = getResources().getConfiguration();
-        configuration.setLayoutDirection(locale);
-        configuration.setLocale(locale);
-        getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
+//        Locale locale= new Locale("ar");
+//        Configuration configuration = getResources().getConfiguration();
+//        configuration.setLayoutDirection(locale);
+//        configuration.setLocale(locale);
+//        getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
 
         setContentView(R.layout.activity_main);
 
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         request.setDeviceName("S9+");
 //        request.setImageUrl("https://i.ibb.co/Hx4RmGK/me.png");
         request.setPlatform("Android");
+
         try {
             chat = CodeZyncChat.init(this, request);
             chat.startChat();
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
             chat.setHeaderHeight(130);
             chat.setChatBubbles(R.drawable.bubble_sent,R.drawable.bubble_received);
             chat.setReceivedMessageTextColor(R.color.white);
+//            chat.setEnabledEmptyChatAnimation(false);
 
 
         } catch (Exception e) {

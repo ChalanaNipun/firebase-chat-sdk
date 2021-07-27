@@ -20,20 +20,13 @@
         <item name="android:textColor">@color/black</item>
         <item name="maxHeight">150dp</item>
         <item name="maxLines">5</item>
+        <item name="android:layout_marginEnd">10dp</item>
         <item name="android:textColorHint">@color/dark_grey</item>
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">@font/ubuntu_regular</item>
 
     </style>
 
-
-    <style name="sentMessageTextStyle">
-        <item name="android:textSize">15sp</item>
-        <item name="android:textStyle">normal</item>
-        <item name="android:gravity">start</item>
-        <item name="android:textColor">@color/chat_sender_text_color</item>
-        <item name="android:layout_marginStart">10dp</item>
-    </style>
 
     <style name="receivedMessageTextStyle">
         <item name="android:layout_marginStart">10dp</item>
@@ -68,10 +61,6 @@
         <item name="android:fontFamily">@font/comfortaa_regular</item>
     </style>
 
-    <style name="chatDeliveryTextStyle">
-        <item name="android:textSize">10sp</item>
-        <item name="android:textStyle">italic</item>
-    </style>
 
     <style name="headerImageStyle">
         <item name="android:height">45dp</item>
@@ -81,15 +70,6 @@
         <item name="android:scaleType">fitCenter</item>
     </style>
 
-    <style name="sentBubbleStyle">
-
-        <item name="android:elevation">5dp</item>
-    </style>
-
-    <style name="receivedBubbleStyle">
-
-        <item name="android:elevation">5dp</item>
-    </style>
 
     <style name="bottomStyle">
         <item name="android:background">@drawable/footer_shape</item>
@@ -109,4 +89,74 @@
         <item name="android:textColor">@color/chat_header_color</item>
     </style>
 
+
+    <!--    receive bubble customizations-->
+
+    <!--    //Main Layout -->
+    <style name="receivedBubbleStyle">
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:background">@drawable/chat_receiver_bubble</item>
+        <item name="android:gravity">center|start</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <!--        <item name="android:elevation">5dp</item>-->
+    </style>
+
+    <!--    //Inner Layout (After main)-->
+    <style name="receiveOuterLayoutStyle">
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+    </style>
+
+    <!--    //sent textview style-->
+    <style name="receiveMessageTextStyle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:gravity">start</item>
+        <item name="android:textColor">@color/chat_sender_text_color</item>
+        <item name="android:layout_marginStart">10dp</item>
+    </style>
+
+    <!--    //delivery layout style-->
+    <style name="receiveMessageDeliveryLayoutStyle">
+        <item name="android:layout_gravity">right|bottom</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <!--    //delivery textview style-->
+    <style name="chatDeliveryTextStyle">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:gravity">end</item>
+        <item name="android:textColor">@color/chat_receiver_hint_color</item>
+    </style>
+
+
+    <!--    //sent bubble customizations-->
+    <style name="sentBubbleStyle">
+        <item name="android:background">@drawable/chat_sender_bubble</item>
+        <item name="android:gravity">center|end</item>
+        <item name="android:layoutDirection">locale</item>
+        <item name="android:layout_margin">2dp</item>
+        <!--        <item name="android:elevation">5dp</item>-->
+    </style>
+
+
+    <!--    //Inner Layout (After main)-->
+    <style name="sentOuterLayoutStyle">
+
+        <item name="android:layout_gravity">end</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+    </style>
+
+    <!--    //delivery layout style-->
+    <style name="sentMessageDeliveryLayoutStyle">
+        <item name="android:layout_gravity">end|bottom</item>
+        <item name="android:gravity">end</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
 </resources>

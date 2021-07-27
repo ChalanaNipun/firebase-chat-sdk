@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -26,6 +27,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static android.content.Context.VIBRATOR_SERVICE;
+
 public class Utility {
 
     public static String objectToString(Object object) {
@@ -36,6 +39,7 @@ public class Utility {
     private static final String TIME_DISPLAY_FORMAT = "MMM dd, yyyy hh:mm a";
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(TIMESTAMP_FORMAT, Locale.ENGLISH);
     private static final SimpleDateFormat DATE_DISPLAY_FORMAT = new SimpleDateFormat(TIME_DISPLAY_FORMAT, Locale.ENGLISH);
+    private static Vibrator myVib;
 
 
     public static Object stringToObject(String string, Class clz) {
@@ -194,5 +198,13 @@ public class Utility {
         }
 
         return resizedImage;
+    }
+
+    public static void vibrate(Context context) {
+
+        if (myVib == null) {
+            myVib = (Vibrator) context.getSystemService(VIBRATOR_SERVICE);
+        }
+        myVib.vibrate(50);
     }
 }

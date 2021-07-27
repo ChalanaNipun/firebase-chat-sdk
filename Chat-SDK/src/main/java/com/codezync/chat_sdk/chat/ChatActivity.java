@@ -345,7 +345,9 @@ public class ChatActivity extends AppCompatActivity {
             YoYo.with(Techniques.Shake)
                     .duration(1000)
                     .repeat(0)
-                    .playOn(binding.cardMessage);
+                    .playOn(binding.txtMessage);
+
+            Utility.vibrate(this);
 
 
         } else {
@@ -384,31 +386,42 @@ public class ChatActivity extends AppCompatActivity {
                             binding.recyclerview.setVisibility(View.VISIBLE);
                             binding.llAnimation.setVisibility(View.GONE);
                             binding.llMessageContainer.setVisibility(View.VISIBLE);
-                        } else {
+                        } else if (Customization.IS_ENABLED_EMPTY_CHAT_ANIMATION) {
                             binding.recyclerview.setVisibility(View.GONE);
                             setEmptyChatData();
                             binding.llAnimation.setVisibility(View.VISIBLE);
+                            binding.llMessageContainer.setVisibility(View.VISIBLE);
+                        } else {
+                            binding.recyclerview.setVisibility(View.VISIBLE);
+                            binding.llAnimation.setVisibility(View.GONE);
                             binding.llMessageContainer.setVisibility(View.VISIBLE);
                         }
 
 
                     } else { // chat is closed
                         isChatClosed = true;
-                        Utility.hideSoftKeyboard(ChatActivity.this);
-                        binding.recyclerview.setVisibility(View.GONE);
-                        setChatCloseData();
-                        binding.llAnimation.setVisibility(View.VISIBLE);
-                        binding.llMessageContainer.setVisibility(View.GONE);
 
+                        int delay = 1000;
+
+                        if (Customization.IS_ENABLED_CHAT_END_ANIMATION) {
+                            Utility.hideSoftKeyboard(ChatActivity.this);
+                            binding.recyclerview.setVisibility(View.GONE);
+                            setChatCloseData();
+                            binding.llAnimation.setVisibility(View.VISIBLE);
+                            binding.llMessageContainer.setVisibility(View.GONE);
+                            delay = 5000;
+                        }
 
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 isExit = true;
                                 goOffline();
-
                             }
-                        }, 5000);
+                        }, delay);
+
+
+
                     }
 
 
@@ -444,6 +457,23 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        if (Customization.IS_ENABLED_LOADING_ANIMATION) {
+            viewModel.getIsLoading().observe(this, new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean isLoading) {
+                    if (isLoading) {
+                        if ((progressBar != null) && (!progressBar.isShowing())) {
+                            progressBar.show();
+                        }
+                    } else {
+                        if ((progressBar != null) && (progressBar.isShowing())) {
+                            progressBar.dismiss();
+                        }
+                    }
+                }
+            });
+        }
+
         viewModel.isLoadingChat.observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isLoading) {
@@ -461,21 +491,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-
-        viewModel.getIsLoading().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean isLoading) {
-                if (isLoading) {
-                    if ((progressBar != null) && (!progressBar.isShowing())) {
-                        progressBar.show();
-                    }
-                } else {
-                    if ((progressBar != null) && (progressBar.isShowing())) {
-                        progressBar.dismiss();
-                    }
-                }
-            }
-        });
 
         viewModel.getOnError().observe(this, new Observer<String>() {
             @Override
@@ -555,13 +570,13 @@ public class ChatActivity extends AppCompatActivity {
 
     private void setEmptyChatData() {
         binding.lblEmptyChatMessage.setText(getString(R.string.start_your_conversation));
-        binding.animationView.setAnimation("empty_chat_animation.json");
+        binding.animationView.setAnimation(Utility.isNotNull(Customization.EMPTY_CHAT_ANIMATION) ? Customization.EMPTY_CHAT_ANIMATION : "empty_chat_animation.json");
         binding.animationView.playAnimation();
     }
 
     private void setChatCloseData() {
         binding.lblEmptyChatMessage.setText(getString(R.string.chat_done_message));
-        binding.animationView.setAnimation("chat_done_animation.json");
+        binding.animationView.setAnimation(Utility.isNotNull(Customization.CHAT_END_ANIMATION) ? Customization.CHAT_END_ANIMATION : "chat_done_animation.json");
         binding.animationView.playAnimation();
     }
 

@@ -24,7 +24,7 @@
                 android:id="@+id/img_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10sp"
+                android:layout_marginStart="10sp"
                 android:padding="10dp"
                 android:src="@drawable/ic_back" />
 
@@ -50,7 +50,7 @@
                     style="@style/chatTitleStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:text="@string/fetching_data" />
 
                 <TextView
@@ -58,7 +58,7 @@
                     style="@style/userStatusStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:text="@string/fetching_data" />
 
             </LinearLayout>
@@ -149,8 +149,8 @@
                         android:id="@+id/btn_image"
                         android:layout_width="30dp"
                         android:layout_height="50dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="10dp"
                         android:src="@drawable/attachment_icon" />
 
                     <EditText
@@ -164,7 +164,7 @@
                         android:hint="@string/message_hint"
                         android:maxLines="7"
                         android:minHeight="50dp"
-                        android:paddingLeft="10dp"
+                        android:paddingStart="10dp"
                         android:textColor="@color/black" />
 
 
@@ -185,8 +185,8 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="10dp"
+
+                android:layout_marginEnd="10dp"
                 android:src="@drawable/send_icon" />
             <!--            </androidx.cardview.widget.CardView>-->
 
