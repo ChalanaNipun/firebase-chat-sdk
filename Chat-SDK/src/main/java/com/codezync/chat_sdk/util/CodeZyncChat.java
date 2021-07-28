@@ -9,6 +9,7 @@ import com.codezync.chat_sdk.chat.ChatActivity;
 import com.codezync.chat_sdk.model.ChatRequest;
 import com.codezync.chat_sdk.model.NewMessageModel;
 import com.codezync.chat_sdk.model.Sender;
+import com.codezync.chat_sdk.repository.ChatService;
 import com.google.rpc.Code;
 
 
@@ -62,6 +63,9 @@ public class CodeZyncChat {
         }
     }
 
+    public void hideFloatingIcon() {
+        ChatService.hideFloatingIcon();
+    }
 
     public void OnMessageReceived(OnMessageReceivedListener listener) {
         messageResponseListener = listener;

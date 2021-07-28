@@ -81,6 +81,13 @@ public class ChatService {
         dialog.show();
     }
 
+
+    public static void hideFloatingIcon() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+    }
+
     private static void setDialogGravity(Dialog dialog, int gravity) {
         if (dialog != null) {
             Window window = dialog.getWindow();
