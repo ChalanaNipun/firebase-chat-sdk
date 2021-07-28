@@ -12,6 +12,18 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="FloatingDialog" parent="Theme.AppCompat.Light.Dialog">
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:gravity">end|bottom</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
     <style name="RoundedEditTextStyle">
         <item name="android:background">@drawable/custom_edit_text</item>
         <item name="android:drawablePadding">8dp</item>
@@ -158,5 +170,15 @@
         <item name="android:gravity">end</item>
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+
+    <style name="floatingIconStyle">
+        <item name="android:gravity">bottom|end</item>
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:src">@drawable/send_icon</item>
+
     </style>
 </resources>

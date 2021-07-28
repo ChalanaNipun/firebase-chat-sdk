@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -80,6 +81,18 @@ public class ChatActivity extends AppCompatActivity {
     private boolean isListenersRegistered;
     private MediaPlayer mediaPlayer;
     private Message uploadingImage;
+    private final int textFieldFocusDelay = 8000;//S
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            if (!isExit) {
+                binding.txtMessage.requestFocus();
+                Utility.showSoftKeyboard(ChatActivity.this, binding.txtMessage);
+            }
+        }
+    };
+
+    private Handler keyboardHandler = new Handler();
 
 
     private Runnable messageExitTextChanger = new Runnable() {
@@ -103,11 +116,25 @@ public class ChatActivity extends AppCompatActivity {
         init();
         setObservers();
 
-        viewModel.loadChat();
-
-        viewModel.setListenerForGetUserTyping();
         viewModel.getAdminContent();
+        viewModel.setListenerForGetUserTyping();
 
+
+        binding.chatShimmerLayout.setVisibility(View.VISIBLE);
+        binding.chatShimmerLayout.startShimmer();
+        binding.recyclerview.setVisibility(View.GONE);
+        binding.llAnimation.setVisibility(View.GONE);
+
+        focusEditText();
+        if (Customization.HEADER_ICON != 0) {
+            setHeaderItems(null);
+        }
+
+    }
+
+
+    private void focusEditText() {
+        keyboardHandler.postDelayed(runnable, textFieldFocusDelay);
     }
 
 //    private void initSecondFirebaseAcct() {
@@ -167,6 +194,9 @@ public class ChatActivity extends AppCompatActivity {
 
         if (isExit) {
             viewModel.stopListeners();
+            if (handler != null && runnable != null) {
+                keyboardHandler.removeCallbacks(runnable);
+            }
             finish();
         }
 
@@ -216,6 +246,13 @@ public class ChatActivity extends AppCompatActivity {
             openImagePicker();
         });
 
+        binding.llMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utility.hideSoftKeyboard(ChatActivity.this);
+            }
+        });
+
 
         binding.imgBack.setOnClickListener(view -> {
             isExit = true;
@@ -242,6 +279,14 @@ public class ChatActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 last_text_edit = System.currentTimeMillis();
                 handler.postDelayed(messageExitTextChanger, delay);
+            }
+        });
+
+
+        binding.recyclerview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utility.hideSoftKeyboard(ChatActivity.this);
             }
         });
 
@@ -272,10 +317,18 @@ public class ChatActivity extends AppCompatActivity {
         }
 
 
+        if (Utility.isNotNull(Customization.TITLE)) {
+            binding.lblUserName.setText(Customization.TITLE);
+        }
+
+        if (Customization.HEADER_ICON != 0) {
+            binding.imgAdmin.setImageDrawable(getDrawable(Customization.HEADER_ICON));
+        }
+
+
         if (Customization.HEADER_HEIGHT >= 120) {
             binding.llHeader.getLayoutParams().height = Customization.HEADER_HEIGHT;
         }
-
         if (Customization.TITLE_TEXT_COLOR != 0) {
             binding.lblUserName.setTextColor(getColor(Customization.TITLE_TEXT_COLOR));
         }
@@ -383,18 +436,25 @@ public class ChatActivity extends AppCompatActivity {
                         setListenersAndUpdateStatus();
 
                         if (adapter.haveChat()) {
+                            LogUtil.debug(TAG, "CHAT Available");
                             binding.recyclerview.setVisibility(View.VISIBLE);
                             binding.llAnimation.setVisibility(View.GONE);
-                            binding.llMessageContainer.setVisibility(View.VISIBLE);
-                        } else if (Customization.IS_ENABLED_EMPTY_CHAT_ANIMATION) {
-                            binding.recyclerview.setVisibility(View.GONE);
-                            setEmptyChatData();
-                            binding.llAnimation.setVisibility(View.VISIBLE);
                             binding.llMessageContainer.setVisibility(View.VISIBLE);
                         } else {
-                            binding.recyclerview.setVisibility(View.VISIBLE);
-                            binding.llAnimation.setVisibility(View.GONE);
-                            binding.llMessageContainer.setVisibility(View.VISIBLE);
+                            LogUtil.debug(TAG, "CHAT Not Available");
+                            if (Customization.IS_ENABLED_EMPTY_CHAT_ANIMATION) {
+                                LogUtil.debug(TAG, "Showing empty animation");
+                                binding.recyclerview.setVisibility(View.GONE);
+                                setEmptyChatData();
+                                binding.llAnimation.setVisibility(View.VISIBLE);
+                                binding.llMessageContainer.setVisibility(View.VISIBLE);
+                            } else {
+                                LogUtil.debug(TAG, "empty animation disabled ");
+                                binding.recyclerview.setVisibility(View.VISIBLE);
+                                binding.llAnimation.setVisibility(View.GONE);
+                                binding.llMessageContainer.setVisibility(View.VISIBLE);
+                            }
+
                         }
 
 
@@ -402,10 +462,10 @@ public class ChatActivity extends AppCompatActivity {
                         isChatClosed = true;
 
                         int delay = 1000;
-
+                        Utility.hideSoftKeyboard(ChatActivity.this);
+                        binding.llMessageContainer.setVisibility(View.GONE);
+                        binding.recyclerview.setVisibility(View.GONE);
                         if (Customization.IS_ENABLED_CHAT_END_ANIMATION) {
-                            Utility.hideSoftKeyboard(ChatActivity.this);
-                            binding.recyclerview.setVisibility(View.GONE);
                             setChatCloseData();
                             binding.llAnimation.setVisibility(View.VISIBLE);
                             binding.llMessageContainer.setVisibility(View.GONE);
@@ -421,11 +481,11 @@ public class ChatActivity extends AppCompatActivity {
                         }, delay);
 
 
-
                     }
 
 
                 } else {
+                    LogUtil.debug(TAG, "Null chat response");
                     binding.recyclerview.setVisibility(View.GONE);
                     binding.llAnimation.setVisibility(View.VISIBLE);
                 }
@@ -517,6 +577,8 @@ public class ChatActivity extends AppCompatActivity {
                 if (Customization.IS_ENABLED_NEW_MESSAGE_SOUND) {
                     playReceivedMessageSound();
                 }
+
+                Utility.hideSoftKeyboard(ChatActivity.this);
             }
         });
 
@@ -530,12 +592,12 @@ public class ChatActivity extends AppCompatActivity {
         viewModel.adminContentMutableLiveData.observe(this, new Observer<AdminSession>() {
             @Override
             public void onChanged(AdminSession adminSession) {
-                if (Utility.isNotNull(getString(R.string.chat_title))) {
-                    binding.lblUserName.setText(R.string.chat_title);
-                } else {
-                    binding.lblUserName.setText(adminSession.getAdminContent().getSender().getName());
-                }
-                Utility.loadImage(binding.imgAdmin, ChatActivity.this, adminSession.getAdminContent().getSender().getImageUrl(), R.drawable.img_pic_placeholder);
+
+                LogUtil.debug(TAG, "Admin data loaded");
+                //move the place coz should show the greeting message if chat is empty
+                viewModel.loadChat();
+                setHeaderItems(adminSession);
+
             }
         });
 
@@ -561,6 +623,25 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
+    private void setHeaderItems(AdminSession adminSession) {
+
+        if (Utility.isNotNull(Customization.TITLE)) {
+            binding.lblUserName.setText(Customization.TITLE);
+        } else if (Utility.isNotNull(getString(R.string.chat_title))) {
+            binding.lblUserName.setText(R.string.chat_title);
+        } else if (adminSession != null) {
+            binding.lblUserName.setText(adminSession.getAdminContent().getSender().getName());
+        }
+
+        if (Customization.HEADER_ICON != 0) {
+            binding.imgAdmin.setImageDrawable(getDrawable(Customization.HEADER_ICON));
+        } else if (adminSession != null) {
+            Utility.loadImage(binding.imgAdmin, ChatActivity.this, adminSession.getAdminContent().getSender().getImageUrl(), R.drawable.img_pic_placeholder);
+        }
+
+
+    }
+
     private void ifImageUploadingShowUploadingImage() {
         if (uploadingImage != null) {
             adapter.addData(uploadingImage);
@@ -583,7 +664,8 @@ public class ChatActivity extends AppCompatActivity {
 
     //----------permissions------------
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == Constants.ACTIVITY_RESULTS_READ_STORAGE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

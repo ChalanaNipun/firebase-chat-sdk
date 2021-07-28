@@ -11,6 +11,7 @@ public class Customization {
     public static Boolean IS_ENABLED_LOADING_ANIMATION = true;
     public static Boolean IS_ENABLED_EMPTY_CHAT_ANIMATION = true;
     public static Boolean IS_ENABLED_CHAT_END_ANIMATION = true;
+    public static Boolean IS_ARABIC_LANGUAGE = false;
 
     public static int SEND_ICON = 0;
     public static int NEW_MESSAGE_SOUND = 0;
@@ -36,8 +37,11 @@ public class Customization {
     public static String MESSAGE_HINT = "";
     public static String EMPTY_CHAT_ANIMATION = "";
     public static String CHAT_END_ANIMATION = "";
+    public static String TITLE = "";
+    public static int HEADER_ICON = 0;
+    public static int CHAT_FLOATING_ICON = 0;
+    public static int FLOATING_ICON_WIDTH = 0;
 //    public static boolean IS_RTL = false;
-
 
 
 }

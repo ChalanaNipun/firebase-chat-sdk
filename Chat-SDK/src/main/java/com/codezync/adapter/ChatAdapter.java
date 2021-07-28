@@ -78,7 +78,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         boolean isFound = false;
         if (messageList != null || messageList.size() > 0) {
             for (Message message : messageList) {
-                if (message.getStatus().equals(Constants.SEEN_STATUS) || message.getStatus().equals(Constants.DELIVERED_STATUS)) {
+                if (message.getStatus().equals(Constants.SEEN_STATUS) || message.getStatus().equals(Constants.DELIVERED_STATUS)|| message.getStatus().equals(Constants.DEFAULT_MESSAGE_STATUS)) {
                     isFound = true;
                     break;
                 }
@@ -161,9 +161,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         holder.binding.lblSenderFLatter.setText(sender.getName().substring(0,1));
                     }
 
-                    holder.binding.imgMy.setVisibility(View.VISIBLE);
+                    holder.binding.rlSenderImage.setVisibility(View.VISIBLE);
                 } else {
-                    holder.binding.imgMy.setVisibility(View.GONE);
+                    holder.binding.rlSenderImage.setVisibility(View.GONE);
                 }
 
                 if (Customization.IS_ENABLED_SENT_DATE) {
@@ -313,9 +313,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         holder.binding.lblSenderFLatter.setText(sender.getName().substring(0,1));
                     }
 
-                    holder.binding.imgMy.setVisibility(View.VISIBLE);
+                    holder.binding.rlSenderImage.setVisibility(View.VISIBLE);
                 } else {
-                    holder.binding.imgMy.setVisibility(View.GONE);
+                    holder.binding.rlSenderImage.setVisibility(View.GONE);
                 }
 
                 if (Customization.IS_ENABLED_SENT_DATE) {

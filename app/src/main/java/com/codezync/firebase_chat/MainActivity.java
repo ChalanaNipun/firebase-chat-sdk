@@ -43,14 +43,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        ChatRequest request = new ChatRequest();
+        ChatRequest request = new ChatRequest("chalana@gmail.com", "patpatGO Customer Care", R.drawable.attachment_icon);
         request.setEmail("chalana@gmail.com");
-        request.setEmailOrPhoneNo("chalana@gmail.com");
         request.setAppVersion("1.0.0");
         request.setPhoneNo("0716359376");
         request.setName("Chalana Nupun");
         request.setDeviceName("S9+");
-//        request.setImageUrl("https://i.ibb.co/Hx4RmGK/me.png");
+        request.setImageUrl("https://i.ibb.co/Hx4RmGK/me.png");
         request.setPlatform("Android");
 
         try {
@@ -79,11 +78,12 @@ public class MainActivity extends AppCompatActivity {
             chat.setSenderBackgroundColor(R.color.purple_200);
             chat.setHeaderShape(R.drawable.header_new);
             chat.setBackgroundImage(R.drawable.gb);
-            chat.setHeaderHeight(130);
-            chat.setChatBubbles(R.drawable.bubble_sent,R.drawable.bubble_received);
+            chat.setHeaderHeight(180);
+            chat.setEnabledSenderIcon(false);
+            chat.setChatBubbles(R.drawable.bubble_sent, R.drawable.bubble_received);
             chat.setReceivedMessageTextColor(R.color.white);
-//            chat.setEnabledEmptyChatAnimation(false);
-
+            chat.setEnabledEmptyChatAnimation(true);
+            chat.setIsArabicLanguage(false);
 
         } catch (Exception e) {
             e.printStackTrace();

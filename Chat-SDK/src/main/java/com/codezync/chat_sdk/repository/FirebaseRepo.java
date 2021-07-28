@@ -59,7 +59,6 @@ public class FirebaseRepo {
     private SessionResponse sessionResponse;
     private ChatRequest chatRequest;
     private ListenerRegistration chatListener, adminTypingListener, lastMessageListener;
-    private AdminSession adminSession;
 
     public FirebaseRepo(Activity activity, ChatRequest chatRequest) {
         this.activity = activity;
@@ -69,9 +68,6 @@ public class FirebaseRepo {
         this.chatRequest = chatRequest;
     }
 
-    public void setAdminSession(AdminSession adminSession) {
-        this.adminSession = adminSession;
-    }
 
     //    public void getAllSessions(OnNetworkResponseListener listener) {
 //        firebaseFirestore.collection(Constants.CHAT_COLLECTION_PATH).document(sender.getSenderId()).collection(Constants.CHAT_CONTENT_DOCUMENT).
@@ -161,6 +157,8 @@ public class FirebaseRepo {
 
                             if (!message.getStatus().equals(Constants.DEFAULT_MESSAGE_STATUS)) {
                                 updateContent(message, listener, false);
+                            }else {
+                                listener.onSuccessResponse(true);
                             }
 
                         }
@@ -185,9 +183,11 @@ public class FirebaseRepo {
 //                            listener.onSuccessResponse(true);
                             //get Open Chat
 //                            callOpenSessionFinder(listener);
-
-                            updateContent(message, listener, true);
-
+                            if (!message.getStatus().equals(Constants.DEFAULT_MESSAGE_STATUS)) {
+                                updateContent(message, listener, true);
+                            }else {
+                                listener.onSuccessResponse(true);
+                            }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override

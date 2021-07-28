@@ -9,6 +9,7 @@ import com.codezync.chat_sdk.chat.ChatActivity;
 import com.codezync.chat_sdk.model.ChatRequest;
 import com.codezync.chat_sdk.model.NewMessageModel;
 import com.codezync.chat_sdk.model.Sender;
+import com.google.rpc.Code;
 
 
 public class CodeZyncChat {
@@ -21,6 +22,7 @@ public class CodeZyncChat {
     private static MutableLiveData<String> onMessageReceived = new MutableLiveData<>();
     private static String lastMessage;
     private static OnMessageReceivedListener messageResponseListener;
+    private static CodeZyncChat mCodeZyncChat;
 
 
     public static Sender getSender() {
@@ -43,14 +45,21 @@ public class CodeZyncChat {
             mImageUrl = chatRequest.getImageUrl();
         }
 
-
-        return new CodeZyncChat();
+        mCodeZyncChat = new CodeZyncChat();
+        return mCodeZyncChat;
     }
 
     public void startChat() {
         Intent intent = new Intent(mActivity, ChatActivity.class);
         intent.putExtra(Constants.BUNDLE_CHAT_REQUEST, Utility.objectToString(mChatRequest));
         mActivity.startActivity(intent);
+    }
+
+
+    public static void reOpen() {
+        if (mChatRequest != null && mActivity != null && mCodeZyncChat != null) {
+            mCodeZyncChat.startChat();
+        }
     }
 
 
@@ -214,21 +223,25 @@ public class CodeZyncChat {
     }
 
 
-    public  void setEnabledEmptyChatAnimation(Boolean isEnabledEmptyChatAnimation) {
+    public void setEnabledEmptyChatAnimation(Boolean isEnabledEmptyChatAnimation) {
         Customization.IS_ENABLED_EMPTY_CHAT_ANIMATION = isEnabledEmptyChatAnimation;
     }
 
 
-    public  void setEnabledChatEndAnimation(Boolean isEnabledChatEndAnimation) {
+    public void setEnabledChatEndAnimation(Boolean isEnabledChatEndAnimation) {
         Customization.IS_ENABLED_CHAT_END_ANIMATION = isEnabledChatEndAnimation;
     }
 
-    public  void setEmptyChatAnimation(String emptyChatAnimationFileNameWithExtension) {
+    public void setEmptyChatAnimation(String emptyChatAnimationFileNameWithExtension) {
         Customization.EMPTY_CHAT_ANIMATION = emptyChatAnimationFileNameWithExtension;
     }
 
-    public  void setChatEndAnimation(String chatEndAnimationFileNameWithExtension) {
+    public void setChatEndAnimation(String chatEndAnimationFileNameWithExtension) {
         Customization.CHAT_END_ANIMATION = chatEndAnimationFileNameWithExtension;
+    }
+
+    public void setIsArabicLanguage(boolean isArabic) {
+        Customization.IS_ARABIC_LANGUAGE = isArabic;
     }
 
 }

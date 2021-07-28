@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.MimeTypeMap;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.google.gson.Gson;
@@ -88,7 +89,18 @@ public class Utility {
 
                 }
             }
-        }, 1000);
+        }, 300);
+    }
+
+    public static void showSoftKeyboard(Activity activity, EditText editText) {
+        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                editText.requestFocus();
+            }
+        }, 100);
+        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
     }
 
     public static void loadImage(ImageView imageView, Context context, String url, int placeHolderImage) {

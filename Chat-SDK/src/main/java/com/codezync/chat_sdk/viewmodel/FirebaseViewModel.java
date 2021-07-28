@@ -19,6 +19,7 @@ import com.codezync.chat_sdk.model.Sender;
 import com.codezync.chat_sdk.repository.FirebaseRepo;
 import com.codezync.chat_sdk.util.Constants;
 import com.codezync.chat_sdk.util.Converter;
+import com.codezync.chat_sdk.util.Customization;
 import com.codezync.chat_sdk.util.LogUtil;
 import com.codezync.chat_sdk.util.NotificationUtility;
 import com.codezync.chat_sdk.util.OnNetworkResponseListener;
@@ -33,6 +34,7 @@ import java.io.File;
 public class FirebaseViewModel extends BaseViewModel {
 
 
+    private static final String TAG = "FirebaseViewModel";
     public MutableLiveData<OpenChatResponse> openChatResponseMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<Boolean> isUploadingImage = new MutableLiveData<>();
     public MutableLiveData<Boolean> isSendingMessage = new MutableLiveData<>();
@@ -102,22 +104,23 @@ public class FirebaseViewModel extends BaseViewModel {
             @Override
             public void onSuccessResponse(OpenChatResponse response) {
                 stopLoadingChat();
+                LogUtil.debug(TAG,"Got the chats !");
                 openChatResponseMutableLiveData.postValue(response);
 
                 //detect user 1st message
-                if (response.getSessionResponse().getMessage().size() == 2) {
-                    //send default message from app side
-                    if (adminSession != null) {
-                        Message defaultMessage = new Message(Utility.getCurrentTimestamp(), adminSession.getAdminContent().getSender(), adminSession.getAdminContent().getDefaultMessage(), Constants.TEXT_CONTENT_TYPE, Constants.DEFAULT_MESSAGE_STATUS);
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                sendMessage(sessionId, defaultMessage);
-                            }
-                        }, 1000);
-                    }
-
-                }
+//                if (response.getSessionResponse().getMessage().size() == 2) {
+//                    //send default message from app side
+//                    if (adminSession != null) {
+//                        Message defaultMessage = new Message(Utility.getCurrentTimestamp(), adminSession.getAdminContent().getSender(), adminSession.getAdminContent().getDefaultMessage(), Constants.TEXT_CONTENT_TYPE, Constants.DEFAULT_MESSAGE_STATUS);
+//                        new Handler().postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                sendMessage(sessionId, defaultMessage);
+//                            }
+//                        }, 1000);
+//                    }
+//
+//                }
 
             }
 
@@ -138,13 +141,16 @@ public class FirebaseViewModel extends BaseViewModel {
 
     public void loadChat() {
         onLoadingChat();
+        LogUtil.debug(TAG,"Loading chat");
         repo.getOpenSession(new OnNetworkResponseListener<OpenChatResponse, String>() {
             @Override
             public void onSuccessResponse(OpenChatResponse response) {
                 stopLoadingChat();
                 if (response == null) { //Not available open chat
+                    LogUtil.debug(TAG,"Chat is empty.. sending init message");
                     sendInitMessage();
                 } else {
+                    LogUtil.debug(TAG,"Getting chat");
                     getChats(response.getSessionId());
                 }
             }
@@ -166,14 +172,16 @@ public class FirebaseViewModel extends BaseViewModel {
 
     private void sendInitMessage() {
         // onLoading();
-        Message message = new Message(Utility.getCurrentTimestamp(), sender, "", Constants.TEXT_CONTENT_TYPE, Constants.STATUS_HIDDEN);
+        Message message = new Message(Utility.getCurrentTimestamp(), adminSession.getAdminContent().getSender(), (Customization.IS_ARABIC_LANGUAGE ? adminSession.getAdminContent().getDefaultMessageAR() : adminSession.getAdminContent().getDefaultMessage()), Constants.TEXT_CONTENT_TYPE, Constants.DEFAULT_MESSAGE_STATUS);
         repo.sendMessage(message, "", new OnNetworkResponseListener<Boolean, String>() {
             @Override
             public void onSuccessResponse(Boolean response) {
                 //   stopLoading();
                 if (response) {
+                    LogUtil.debug(TAG,"Init message sent !");
                     loadChat();
                 } else {
+                    LogUtil.debug(TAG,"Init message sending failed !");
                     try {
                         throw new Exception(activity.getString(R.string.init_message_error));
                     } catch (Exception e) {
@@ -435,6 +443,7 @@ public class FirebaseViewModel extends BaseViewModel {
 
 
     public void getAdminContent() {
+        LogUtil.debug(TAG, "Loading Admin data...");
         repo.getAdminContent(new OnNetworkResponseListener<AdminSession, String>() {
             @Override
             public void onSuccessResponse(AdminSession response) {

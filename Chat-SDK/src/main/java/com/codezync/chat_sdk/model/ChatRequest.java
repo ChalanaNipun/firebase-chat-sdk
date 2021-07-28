@@ -1,5 +1,7 @@
 package com.codezync.chat_sdk.model;
 
+import com.codezync.chat_sdk.util.Customization;
+
 public class ChatRequest {
 
     private String customerId;
@@ -14,7 +16,7 @@ public class ChatRequest {
 
     public ChatRequest(String emailOrPhoneNo, String name,
                        String imageUrl, String deviceName, String platform, String phoneNo,
-                       String email,String appVersion) {
+                       String email, String appVersion) {
         this.customerId = emailOrPhoneNo;
         this.name = name;
         this.imageUrl = imageUrl;
@@ -25,7 +27,19 @@ public class ChatRequest {
         this.appVersion = appVersion;
     }
 
-    public ChatRequest() {
+    public ChatRequest(String emailOrPhoneNo, String headerTitle, int headerIcon) {
+        this.customerId = emailOrPhoneNo;
+        Customization.TITLE = headerTitle;
+        Customization.HEADER_ICON = headerIcon;
+    }
+
+    public ChatRequest(String emailOrPhoneNo, int headerIcon) {
+        this.customerId = emailOrPhoneNo;
+        Customization.HEADER_ICON = headerIcon;
+    }
+
+    public ChatRequest(String emailOrPhoneNo) {
+        this.customerId = emailOrPhoneNo;
     }
 
     public String getEmailOrPhoneNo() {
