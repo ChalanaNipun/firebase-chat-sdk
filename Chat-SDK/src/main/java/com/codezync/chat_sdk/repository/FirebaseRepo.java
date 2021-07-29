@@ -157,7 +157,7 @@ public class FirebaseRepo {
 
                             if (!message.getStatus().equals(Constants.DEFAULT_MESSAGE_STATUS)) {
                                 updateContent(message, listener, false);
-                            }else {
+                            } else {
                                 listener.onSuccessResponse(true);
                             }
 
@@ -185,7 +185,7 @@ public class FirebaseRepo {
 //                            callOpenSessionFinder(listener);
                             if (!message.getStatus().equals(Constants.DEFAULT_MESSAGE_STATUS)) {
                                 updateContent(message, listener, true);
-                            }else {
+                            } else {
                                 listener.onSuccessResponse(true);
                             }
                         }
@@ -314,6 +314,20 @@ public class FirebaseRepo {
 
     public void updateLastMessageContents(ContentData contentData, OnNetworkResponseListener listener) {
         firebaseFirestore.collection(Constants.CHAT_COLLECTION_PATH).document(sender.getSenderId()).set(contentData).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                listener.onSuccessResponse(true);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull @NotNull Exception e) {
+                listener.onErrorResponse(e.getLocalizedMessage());
+            }
+        });
+    }
+
+    public void updateDeviceInformation(ChatRequest chatRequest, OnNetworkResponseListener listener) {
+        firebaseFirestore.collection(Constants.CHAT_COLLECTION_PATH).document(sender.getSenderId()).update("customer", chatRequest).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 listener.onSuccessResponse(true);

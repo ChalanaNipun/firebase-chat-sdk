@@ -10,10 +10,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -51,8 +49,6 @@ import com.codezync.chat_sdk.util.Utility;
 import com.codezync.chat_sdk.viewmodel.FirebaseViewModel;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
@@ -118,6 +114,7 @@ public class ChatActivity extends AppCompatActivity {
 
         viewModel.getAdminContent();
         viewModel.setListenerForGetUserTyping();
+        viewModel.updateDeviceInformation();
 
 
         binding.chatShimmerLayout.setVisibility(View.VISIBLE);
@@ -283,12 +280,22 @@ public class ChatActivity extends AppCompatActivity {
         });
 
 
-        binding.recyclerview.setOnClickListener(new View.OnClickListener() {
+//        binding.llMain.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                LogUtil.debug(TAG,"Hide keyboard when scroll ");
+//                Utility.hideSoftKeyboard(ChatActivity.this);
+//            }
+//        });
+
+        binding.recyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onClick(View view) {
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
                 Utility.hideSoftKeyboard(ChatActivity.this);
             }
         });
+
 
     }
 

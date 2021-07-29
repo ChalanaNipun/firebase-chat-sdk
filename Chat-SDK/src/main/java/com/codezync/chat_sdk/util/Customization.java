@@ -41,6 +41,7 @@ public class Customization {
     public static int HEADER_ICON = 0;
     public static int CHAT_FLOATING_ICON = 0;
     public static int FLOATING_ICON_WIDTH = 0;
+    public static int CHAT_FLOATING_BUBBLE = 0;
 //    public static boolean IS_RTL = false;
 
 

@@ -1,8 +1,10 @@
 package com.codezync.chat_sdk.repository;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
@@ -14,10 +16,10 @@ import androidx.lifecycle.Observer;
 import com.codezync.chat_sdk.R;
 import com.codezync.chat_sdk.model.NewMessageModel;
 import com.codezync.chat_sdk.util.CodeZyncChat;
-import com.codezync.chat_sdk.util.Customization;
 import com.codezync.chat_sdk.util.LogUtil;
 import com.codezync.chat_sdk.viewmodel.FirebaseViewModel;
-import com.google.rpc.Code;
+
+import static android.content.Context.WINDOW_SERVICE;
 
 public class ChatService {
 
@@ -51,34 +53,45 @@ public class ChatService {
     }
 
     private static void openDialog() {
-        if (dialog == null) {
-            dialog = new Dialog(CodeZyncChat.getActivity(), R.style.FloatingDialog);
+
+        Activity activity = CodeZyncChat.getActivity();
+
+
+//        if (dialog == null) {
+        dialog = new Dialog(activity, R.style.FloatingDialog);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//            Window window = dialog.getWindow();
-//            window.setGravity(Gravity.BOTTOM | Gravity.END);
-            //   setDialogGravity(dialog, (Gravity.BOTTOM | Gravity.END));
+            Window window = dialog.getWindow();
+            window.setGravity(Gravity.BOTTOM | Gravity.END);
+            dialog.setCancelable(false);
+               setDialogGravity(dialog, (Gravity.BOTTOM | Gravity.END));
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.layout_floating_button);
-            dialog.setCanceledOnTouchOutside(false);
-
-
-            ImageView imageView = dialog.findViewById(R.id.img_chat);
-            imageView.setOnClickListener(view -> {
-                CodeZyncChat.reOpen();
-                dialog.dismiss();
-            });
-
-//            if (Customization.CHAT_FLOATING_ICON != 0) {
-//                imageView.setImageDrawable(CodeZyncChat.getActivity().getDrawable(Customization.CHAT_FLOATING_ICON));
-//            }
+        dialog.setContentView(R.layout.layout_floating_button);
+//            dialog.setCanceledOnTouchOutside(false);
 //
-//            if (Customization.FLOATING_ICON_WIDTH > 30) {
-//                imageView.getLayoutParams().width = Customization.FLOATING_ICON_WIDTH;
-//                imageView.getLayoutParams().height = Customization.FLOATING_ICON_WIDTH;
-//            }
+//
+        ImageView imageView = dialog.findViewById(R.id.img_chat);
+        imageView.setOnClickListener(view -> {
+            CodeZyncChat.reOpen();
+            dialog.dismiss();
+        });
+//
+//
+//        }
 
-        }
+
+//        dialog.setCanceledOnTouchOutside(false);
+//        dialog.setCancelable(false);
+//        WindowManager wma = (WindowManager) activity.getSystemService(WINDOW_SERVICE);
+//        DisplayMetrics displayMetrics = new DisplayMetrics();
+//        wma.getDefaultDisplay().getMetrics(displayMetrics);
+//        Window window = dialog.getWindow();
+//        window.setFlags(WindowManager.LayoutParams.TYPE_SYSTEM_DIALOG,
+//                WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
+//        window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
         dialog.show();
+
+
     }
 
 

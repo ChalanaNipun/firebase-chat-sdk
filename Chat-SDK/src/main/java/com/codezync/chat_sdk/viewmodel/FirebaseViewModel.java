@@ -17,6 +17,7 @@ import com.codezync.chat_sdk.model.NewMessageModel;
 import com.codezync.chat_sdk.model.OpenChatResponse;
 import com.codezync.chat_sdk.model.Sender;
 import com.codezync.chat_sdk.repository.FirebaseRepo;
+import com.codezync.chat_sdk.util.CodeZyncChat;
 import com.codezync.chat_sdk.util.Constants;
 import com.codezync.chat_sdk.util.Converter;
 import com.codezync.chat_sdk.util.Customization;
@@ -51,12 +52,14 @@ public class FirebaseViewModel extends BaseViewModel {
     private Sender sender;
     private Activity activity;
     private String lastMessageWithDateTime = "";
+    private ChatRequest mChatRequest;
 
 
     public void init(Activity activity, ChatRequest chatRequest) {
         this.sender = sender;
         this.activity = activity;
         sender = Converter.createSender(chatRequest);
+        mChatRequest = chatRequest;
         repo = new FirebaseRepo(activity, chatRequest);
     }
 
@@ -104,7 +107,7 @@ public class FirebaseViewModel extends BaseViewModel {
             @Override
             public void onSuccessResponse(OpenChatResponse response) {
                 stopLoadingChat();
-                LogUtil.debug(TAG,"Got the chats !");
+                LogUtil.debug(TAG, "Got the chats !");
                 openChatResponseMutableLiveData.postValue(response);
 
                 //detect user 1st message
@@ -138,19 +141,37 @@ public class FirebaseViewModel extends BaseViewModel {
         });
     }
 
+    public void updateDeviceInformation() {
+        repo.updateDeviceInformation(mChatRequest, new OnNetworkResponseListener() {
+            @Override
+            public void onSuccessResponse(Object response) {
+                //do nothing
+            }
+
+            @Override
+            public void onErrorResponse(Object response) {
+
+            }
+
+            @Override
+            public void onNetworkError() {
+
+            }
+        });
+    }
 
     public void loadChat() {
         onLoadingChat();
-        LogUtil.debug(TAG,"Loading chat");
+        LogUtil.debug(TAG, "Loading chat");
         repo.getOpenSession(new OnNetworkResponseListener<OpenChatResponse, String>() {
             @Override
             public void onSuccessResponse(OpenChatResponse response) {
                 stopLoadingChat();
                 if (response == null) { //Not available open chat
-                    LogUtil.debug(TAG,"Chat is empty.. sending init message");
+                    LogUtil.debug(TAG, "Chat is empty.. sending init message");
                     sendInitMessage();
                 } else {
-                    LogUtil.debug(TAG,"Getting chat");
+                    LogUtil.debug(TAG, "Getting chat");
                     getChats(response.getSessionId());
                 }
             }
@@ -178,10 +199,10 @@ public class FirebaseViewModel extends BaseViewModel {
             public void onSuccessResponse(Boolean response) {
                 //   stopLoading();
                 if (response) {
-                    LogUtil.debug(TAG,"Init message sent !");
+                    LogUtil.debug(TAG, "Init message sent !");
                     loadChat();
                 } else {
-                    LogUtil.debug(TAG,"Init message sending failed !");
+                    LogUtil.debug(TAG, "Init message sending failed !");
                     try {
                         throw new Exception(activity.getString(R.string.init_message_error));
                     } catch (Exception e) {

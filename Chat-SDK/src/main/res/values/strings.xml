@@ -16,4 +16,6 @@
     <string name="online">Online</string>
     <string name="offline">Offline</string>
     <string name="chat_done_message">Thank you for joining with us !</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -7,7 +7,7 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowTranslucentStatus">true</item>
-
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
@@ -16,9 +16,9 @@
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@null</item>
         <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:windowCloseOnTouchOutside">false</item>
         <item name="android:gravity">end|bottom</item>
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
@@ -179,5 +179,20 @@
         <item name="android:layout_height">60dp</item>
         <item name="android:src">@drawable/send_icon</item>
 
+    </style>
+
+    <style name="test" parent="android:style/Theme.Holo.Light.Dialog.NoActionBar">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateAlwaysHidden</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:clickable">true</item>
+        <item name="overlay">true</item>
+        <item name="android:windowOverscan">true</item>
     </style>
 </resources>

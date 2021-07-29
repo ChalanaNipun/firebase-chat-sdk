@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/launcher_roota"
+    android:layout_width="61dp"
+    android:layout_height="61dp"
+    android:layout_gravity="bottom|right"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom|left"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+        <View
+            android:layout_width="72dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="4dp"
+            android:alpha="0.8"
+            android:background="@color/chat_header_color" />
+
+        <ImageButton
+            android:id="@+id/launcher_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:background="@drawable/img_circle"
+            android:clickable="false"
+            android:paddingTop="2dp"
+            android:visibility="visible"
+            tools:backgroundTint="#00f" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/launcher_badge_count"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="top|right"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        tools:backgroundTint="#f00"
+        tools:text="2" />
+</FrameLayout>
