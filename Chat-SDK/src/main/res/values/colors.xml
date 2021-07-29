@@ -19,4 +19,5 @@
     <color name="light_grey">#ebebeb</color>
     <color name="orange">#fa8e00</color>
     <color name="chat_header_color">#533190</color>
+    <color name="colorRed">#f00505</color>
 </resources>

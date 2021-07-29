@@ -2,10 +2,13 @@ package com.codezync.chat_sdk.repository;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -16,6 +19,8 @@ import androidx.lifecycle.Observer;
 import com.codezync.chat_sdk.R;
 import com.codezync.chat_sdk.model.NewMessageModel;
 import com.codezync.chat_sdk.util.CodeZyncChat;
+import com.codezync.chat_sdk.util.DefaultLauncher;
+import com.codezync.chat_sdk.util.DefaultLauncherPresenter;
 import com.codezync.chat_sdk.util.LogUtil;
 import com.codezync.chat_sdk.viewmodel.FirebaseViewModel;
 
@@ -28,17 +33,27 @@ public class ChatService {
     private static String TAG = "ChatService";
     private static Observer observer;
     private static Dialog dialog;
+    private static DefaultLauncherPresenter presenter;
+    private static int chatCount = 0;
+    private static LayoutInflater inflater;
 
     public static void startService(FirebaseViewModel firebaseViewModel) {
         if (!isStarted) {
             isStarted = true;
             viewModel = firebaseViewModel;
+            chatCount = 0;
             // viewModel.setListenerForGetUserTyping();
             LogUtil.debug(TAG, "Chat service started...");
 
             observer = new Observer<NewMessageModel>() {
                 @Override
                 public void onChanged(NewMessageModel newMessageModel) {
+                    chatCount++;
+                    if (presenter != null && presenter.isDisplaying()) {
+                        presenter.setUnreadCount(chatCount);
+                    } else {
+                        presenter.setUnreadCount(0);
+                    }
                     CodeZyncChat.setOnMessageReceived(newMessageModel);
                 }
             };
@@ -59,12 +74,12 @@ public class ChatService {
 
 //        if (dialog == null) {
         dialog = new Dialog(activity, R.style.FloatingDialog);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            Window window = dialog.getWindow();
-            window.setGravity(Gravity.BOTTOM | Gravity.END);
-            dialog.setCancelable(false);
-               setDialogGravity(dialog, (Gravity.BOTTOM | Gravity.END));
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.BOTTOM | Gravity.END);
+        dialog.setCancelable(false);
+        setDialogGravity(dialog, (Gravity.BOTTOM | Gravity.END));
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_floating_button);
 //            dialog.setCanceledOnTouchOutside(false);
 //
@@ -89,15 +104,52 @@ public class ChatService {
 //                WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
 //        window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
-        dialog.show();
+//        dialog.show();
+
+        if (inflater == null) {
+            inflater = LayoutInflater.from(activity.getApplication());
+        }
+
+        if (presenter == null) {
+
+            presenter = new DefaultLauncherPresenter(inflater, new DefaultLauncher.Listener() {
+                @Override
+                public void onLauncherClicked(Context var1) {
+                    presenter.removeLauncher();
+
+                    presenter = null;
+                    CodeZyncChat.reOpen();
+                }
+            });
+            presenter.displayLauncherOnAttachedRoot(CodeZyncChat.mRoot);
+            presenter.setUnreadCount(chatCount);
+        }
+
+//        if (!presenter.isDisplaying()) {
+//            presenter.displayLauncherOnAttachedRoot(CodeZyncChat.mRoot);
+//        }
+
+
+//        DefaultLauncher defaultLauncher = new DefaultLauncher(CodeZyncChat.mRoot, inflater, new DefaultLauncher.Listener() {
+//            @Override
+//            public void onLauncherClicked(Context var1) {
+//                CodeZyncChat.reOpen();
+//            }
+//        }, 0);
+//        defaultLauncher.fadeOnScreen();
 
 
     }
 
 
     public static void hideFloatingIcon() {
-        if (dialog != null && dialog.isShowing()) {
-            dialog.dismiss();
+//        if (dialog != null && dialog.isShowing()) {
+//            dialog.dismiss();
+//        }
+
+        if (presenter != null && presenter.isDisplaying()) {
+            presenter.removeLauncher();
+            presenter = null;
         }
     }
 
@@ -127,6 +179,7 @@ public class ChatService {
 
     private static void unBindObserver() {
         if (observer != null) {
+
             viewModel.onNewMessageReceived.removeObserver(observer);
             LogUtil.debug(TAG, "unBindObserver");
         }
@@ -135,6 +188,7 @@ public class ChatService {
 
     public static void stopService() {
         if (isStarted) {
+            chatCount = 0;
             isStarted = false;
             unBindObserver();
             viewModel = null;

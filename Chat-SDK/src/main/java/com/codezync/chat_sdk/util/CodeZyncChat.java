@@ -2,6 +2,7 @@ package com.codezync.chat_sdk.util;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.view.ViewGroup;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -23,6 +24,7 @@ public class CodeZyncChat extends CZChat {
     private static String lastMessage;
     private static OnMessageReceivedListener messageResponseListener;
     private static CodeZyncChat mCodeZyncChat;
+    public static ViewGroup mRoot;
 
 
     public static Sender getSender() {
@@ -38,7 +40,7 @@ public class CodeZyncChat extends CZChat {
 
 
     @Override
-    public CodeZyncChat registerUser(Activity activity, ChatRequest chatRequest) throws Exception {
+    public CodeZyncChat registerUser(Activity activity, ChatRequest chatRequest, ViewGroup root) throws Exception {
 
         if (activity == null) {
             throw new Exception(Constants.ACTIVITY_ERROR_MESSAGE);
@@ -52,6 +54,7 @@ public class CodeZyncChat extends CZChat {
             mUserId = chatRequest.getEmailOrPhoneNo();
             mName = chatRequest.getName();
             mImageUrl = chatRequest.getImageUrl();
+            mRoot = root;
         }
 
         mCodeZyncChat = new CodeZyncChat();

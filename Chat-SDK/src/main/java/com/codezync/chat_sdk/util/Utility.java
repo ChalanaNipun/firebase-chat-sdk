@@ -12,11 +12,14 @@ import android.os.Handler;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.codezync.chat_sdk.R;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -73,6 +76,19 @@ public class Utility {
         }
     }
 
+    public static ViewGroup getRootView(Activity activity) {
+        ViewGroup root = (ViewGroup)activity.findViewById(R.id.ll_main);
+        if (root == null) {
+            root = new FrameLayout(activity);
+            ((ViewGroup)root).setClipChildren(false);
+            ((ViewGroup)root).setClipToPadding(false);
+            ((ViewGroup)root).setFitsSystemWindows(true);
+            ((ViewGroup)root).setId(R.id.ll_main);
+            activity.addContentView((View)root, new FrameLayout.LayoutParams(-1, -1, 80));
+        }
+
+        return (ViewGroup)root;
+    }
 
     public static void hideSoftKeyboard(Activity activity) {
         new Handler().postDelayed(new Runnable() {

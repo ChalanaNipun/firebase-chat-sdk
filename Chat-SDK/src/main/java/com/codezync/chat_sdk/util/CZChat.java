@@ -1,6 +1,7 @@
 package com.codezync.chat_sdk.util;
 
 import android.app.Activity;
+import android.view.ViewGroup;
 
 import com.codezync.chat_sdk.model.ChatRequest;
 
@@ -10,7 +11,7 @@ public abstract class CZChat {
         return CodeZyncChat.client();
     }
 
-    public abstract CodeZyncChat registerUser(Activity activity, ChatRequest chatRequest) throws Exception;
+    public abstract CodeZyncChat registerUser(Activity activity, ChatRequest chatRequest, ViewGroup root) throws Exception;
     public abstract void startChat();
 
     public abstract void hideFloatingIcon();

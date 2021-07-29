@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LifecycleOwner;
 
 import android.os.Bundle;
+import android.view.ViewGroup;
 
 import com.codezync.chat_sdk.model.ChatRequest;
 import com.codezync.chat_sdk.util.CZChat;
+import com.codezync.chat_sdk.util.Utility;
 
 import es.dmoral.toasty.Toasty;
 
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.button).setOnClickListener(view -> {
 
-            Toasty.error(getBaseContext(),"Hi chalana",Toasty.LENGTH_LONG).show();
+            Toasty.error(getBaseContext(), "Hi chalana", Toasty.LENGTH_LONG).show();
         });
 
         init();
@@ -54,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
         request.setPlatform("Android");
 
         try {
-            chat = CZChat.client().registerUser(this,request);
+            final ViewGroup root = Utility.getRootView(this);
+            chat = CZChat.client().registerUser(this, request, root);
             chat.startChat();
 
 //                chat.onMessageReceived.observe(this, new Observer<String>() {

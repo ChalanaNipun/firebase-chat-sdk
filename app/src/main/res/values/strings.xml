@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Firebase-Chat</string>
+    <item name="intercom_overlay_root" type="id"/>
 </resources>
