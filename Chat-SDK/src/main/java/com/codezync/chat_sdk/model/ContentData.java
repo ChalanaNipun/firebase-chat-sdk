@@ -30,7 +30,7 @@ public class ContentData {
     @Expose
     private boolean isCustomerTyping;
 
-    @SerializedName("chat_status")
+    @SerializedName("chatStatus")
     @Expose
     private String chatStatus;
 

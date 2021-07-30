@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
             chat = CZChat.client().registerUser(this, request, root);
             chat.startChat();
 
+
 //                chat.onMessageReceived.observe(this, new Observer<String>() {
 //                    @Override
 //                    public void onChanged(String s) {
@@ -75,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
 //            });
 //
 //
-////            chat.setEnabledMessageSeenStatus(false);
-////            chat.setEnabledSentDate(false);
+//            chat.setEnabledMessageSeenStatus(false);
+//            chat.setEnabledSentDate(false);
 //            chat.setEnabledImageSending(true);
 //            chat.setSeenIcon(R.drawable.double_tick);
 //            chat.setSenderBackgroundColor(R.color.purple_200);
