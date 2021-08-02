@@ -44,7 +44,7 @@ public class Utility {
     private static final String TIME_DISPLAY_FORMAT = "MMM dd, yyyy hh:mm a";
 
     private static final String UTC_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    private static final SimpleDateFormat UTC_DATE_FORMAT = new SimpleDateFormat(UTC_TIME_FORMAT,Locale.ENGLISH);
+    private static final SimpleDateFormat UTC_DATE_FORMAT = new SimpleDateFormat(TIMESTAMP_FORMAT,Locale.ENGLISH);
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(TIMESTAMP_FORMAT, Locale.ENGLISH);
     private static final SimpleDateFormat DATE_DISPLAY_FORMAT = new SimpleDateFormat(TIME_DISPLAY_FORMAT, Locale.ENGLISH);
     private static Vibrator myVib;
