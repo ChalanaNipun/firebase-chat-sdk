@@ -199,6 +199,7 @@ public class ChatService {
 
     public static void pauseService() {
         if (isStarted) {
+            chatCount = 0;
             unBindObserver();
             LogUtil.debug(TAG, "Chat Service Paused...");
         }
