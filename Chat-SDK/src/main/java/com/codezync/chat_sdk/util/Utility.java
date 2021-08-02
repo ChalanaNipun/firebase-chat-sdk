@@ -30,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import static android.content.Context.VIBRATOR_SERVICE;
 
@@ -41,6 +42,9 @@ public class Utility {
 
     private static final String TIMESTAMP_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
     private static final String TIME_DISPLAY_FORMAT = "MMM dd, yyyy hh:mm a";
+
+    private static final String UTC_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    private static final SimpleDateFormat UTC_DATE_FORMAT = new SimpleDateFormat(UTC_TIME_FORMAT,Locale.ENGLISH);
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(TIMESTAMP_FORMAT, Locale.ENGLISH);
     private static final SimpleDateFormat DATE_DISPLAY_FORMAT = new SimpleDateFormat(TIME_DISPLAY_FORMAT, Locale.ENGLISH);
     private static Vibrator myVib;
@@ -57,7 +61,7 @@ public class Utility {
     public static String toDisplayDateFormat(String date) {
         String simpleDate = "";
         try {
-            Date current = DATE_FORMAT.parse(date);
+            Date current = UTC_DATE_FORMAT.parse(date);
             simpleDate = DATE_DISPLAY_FORMAT.format(current);
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,17 +81,17 @@ public class Utility {
     }
 
     public static ViewGroup getRootView(Activity activity) {
-        ViewGroup root = (ViewGroup)activity.findViewById(R.id.ll_main);
+        ViewGroup root = (ViewGroup) activity.findViewById(R.id.ll_main);
         if (root == null) {
             root = new FrameLayout(activity);
-            ((ViewGroup)root).setClipChildren(false);
-            ((ViewGroup)root).setClipToPadding(false);
-            ((ViewGroup)root).setFitsSystemWindows(true);
-            ((ViewGroup)root).setId(R.id.ll_main);
-            activity.addContentView((View)root, new FrameLayout.LayoutParams(-1, -1, 80));
+            ((ViewGroup) root).setClipChildren(false);
+            ((ViewGroup) root).setClipToPadding(false);
+            ((ViewGroup) root).setFitsSystemWindows(true);
+            ((ViewGroup) root).setId(R.id.ll_main);
+            activity.addContentView((View) root, new FrameLayout.LayoutParams(-1, -1, 80));
         }
 
-        return (ViewGroup)root;
+        return (ViewGroup) root;
     }
 
     public static void hideSoftKeyboard(Activity activity) {
@@ -127,14 +131,14 @@ public class Utility {
 //                .placeholder(placeHolderImage)
 //                .into(imageView);
 
-        if(isNotNull(url)){
+        if (isNotNull(url)) {
             Picasso.with(context)
                     .load(url).placeholder(placeHolderImage).error(placeHolderImage).into(imageView);
         }
 
     }
 
-    public static void loadImage(ImageView imageView, Context context, int  url, int placeHolderImage) {
+    public static void loadImage(ImageView imageView, Context context, int url, int placeHolderImage) {
 
 //        Glide.with(context).load(url)
 //                .asBitmap().centerCrop()
@@ -143,14 +147,17 @@ public class Utility {
 //                .into(imageView);
 
 
-            Picasso.with(context)
-                    .load(url).placeholder(placeHolderImage).error(placeHolderImage).into(imageView);
+        Picasso.with(context)
+                .load(url).placeholder(placeHolderImage).error(placeHolderImage).into(imageView);
 
 
     }
 
     public static String getCurrentTimestamp() {
-        return DATE_FORMAT.format(new Date());
+//        return DATE_FORMAT.format(new Date());
+        UTC_DATE_FORMAT.setTimeZone(TimeZone.getTimeZone("UTC"));
+        final String utcTime = UTC_DATE_FORMAT.format(new Date());
+        return utcTime;
     }
 
     public static String getSystemTimeAsLong() {

@@ -10,6 +10,11 @@ import com.codezync.chat_sdk.model.ChatRequest;
 import com.codezync.chat_sdk.util.CZChat;
 import com.codezync.chat_sdk.util.Utility;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+
 import es.dmoral.toasty.Toasty;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,7 +38,13 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.hello).setOnClickListener(view -> {
 
-            init();
+//            init();
+            final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+            final SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+            sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+            final String utcTime = sdf.format(new Date());
+
+            System.out.println(utcTime);
         });
 
         findViewById(R.id.button).setOnClickListener(view -> {
