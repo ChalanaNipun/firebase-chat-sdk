@@ -183,11 +183,11 @@ public class FirebaseRepo {
 //                            listener.onSuccessResponse(true);
                             //get Open Chat
 //                            callOpenSessionFinder(listener);
-                            if (!message.getStatus().equals(Constants.DEFAULT_MESSAGE_STATUS)) {
+//                            if (!message.getStatus().equals(Constants.DEFAULT_MESSAGE_STATUS)) {
                                 updateContent(message, listener, true);
-                            } else {
-                                listener.onSuccessResponse(true);
-                            }
+//                            } else {
+//                                listener.onSuccessResponse(true);
+//                            }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
