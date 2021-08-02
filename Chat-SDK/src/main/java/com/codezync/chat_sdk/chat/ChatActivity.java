@@ -468,8 +468,8 @@ public class ChatActivity extends AppCompatActivity {
                     } else { // chat is closed
                         isChatClosed = true;
 
-                        int delay = 1000;
                         Utility.hideSoftKeyboard(ChatActivity.this);
+                        int delay = 1000;
                         binding.llMessageContainer.setVisibility(View.GONE);
                         binding.recyclerview.setVisibility(View.GONE);
                         if (Customization.IS_ENABLED_CHAT_END_ANIMATION) {
