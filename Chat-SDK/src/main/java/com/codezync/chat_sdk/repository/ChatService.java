@@ -41,7 +41,7 @@ public class ChatService {
         if (!isStarted) {
             isStarted = true;
             viewModel = firebaseViewModel;
-            chatCount = 0;
+
             // viewModel.setListenerForGetUserTyping();
             LogUtil.debug(TAG, "Chat service started...");
 
@@ -61,7 +61,7 @@ public class ChatService {
         } else {
             LogUtil.debug(TAG, "Already service started...");
         }
-
+        chatCount = 0;
         bindObserver();
 
         openDialog();
