@@ -44,7 +44,7 @@ public class Utility {
     private static final String TIME_DISPLAY_FORMAT = "MMM dd, yyyy hh:mm a";
 
     private static final String UTC_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    private static final SimpleDateFormat UTC_DATE_FORMAT = new SimpleDateFormat(TIMESTAMP_FORMAT,Locale.ENGLISH);
+    private static final SimpleDateFormat UTC_DATE_FORMAT = new SimpleDateFormat(TIMESTAMP_FORMAT, Locale.ENGLISH);
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(TIMESTAMP_FORMAT, Locale.ENGLISH);
     private static final SimpleDateFormat DATE_DISPLAY_FORMAT = new SimpleDateFormat(TIME_DISPLAY_FORMAT, Locale.ENGLISH);
     private static Vibrator myVib;
@@ -94,22 +94,25 @@ public class Utility {
         return (ViewGroup) root;
     }
 
-    public static void hideSoftKeyboard(Activity activity) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-                    View view = activity.getCurrentFocus();
-                    if (view == null) {
-                        view = new View(activity);
-                    }
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                } catch (Exception e) {
 
-                }
-            }
-        }, 300);
+
+
+    public static void hideSoftKeyboard(Activity activity) {
+       activity.runOnUiThread(new Runnable() {
+           @Override
+           public void run() {
+               try {
+                   InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+                   View view = activity.getCurrentFocus();
+                   if (view == null) {
+                       view = new View(activity);
+                   }
+                   imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+               } catch (Exception e) {
+                   e.printStackTrace();
+               }
+           }
+       });
     }
 
     public static void showSoftKeyboard(Activity activity, EditText editText) {
