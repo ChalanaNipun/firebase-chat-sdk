@@ -286,6 +286,10 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        binding.recyclerview.setOnClickListener(view -> {
+            Utility.hideSoftKeyboard(ChatActivity.this);
+        });
+
 
         binding.imgBack.setOnClickListener(view -> {
             isExit = true;

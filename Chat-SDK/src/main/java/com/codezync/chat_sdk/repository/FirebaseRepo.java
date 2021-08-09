@@ -59,6 +59,7 @@ public class FirebaseRepo {
     private SessionResponse sessionResponse;
     private ChatRequest chatRequest;
     private ListenerRegistration chatListener, adminTypingListener, lastMessageListener;
+    private String chatStatus;
 
     public FirebaseRepo(Activity activity, ChatRequest chatRequest) {
         this.activity = activity;
@@ -184,7 +185,7 @@ public class FirebaseRepo {
                             //get Open Chat
 //                            callOpenSessionFinder(listener);
 //                            if (!message.getStatus().equals(Constants.DEFAULT_MESSAGE_STATUS)) {
-                                updateContent(message, listener, true);
+                            updateContent(message, listener, true);
 //                            } else {
 //                                listener.onSuccessResponse(true);
 //                            }
@@ -202,10 +203,21 @@ public class FirebaseRepo {
     private void updateContent(Message message, OnNetworkResponseListener listener, boolean isFirstMessage) {
 
         if (isFirstMessage) {
-            ContentData contentData = new ContentData(chatRequest, message, true, false, false, Constants.OPEN_STATUS, "");
+            isFirstMessage = true;
+            chatStatus = Constants.CLOSE_STATUS;
+            ContentData contentData = null;
+            if (message.getStatus().equals(Constants.DEFAULT_MESSAGE_STATUS)) {
+                contentData = new ContentData(chatRequest, null, true, false, false, Constants.CLOSE_STATUS, "");
+            } else {
+                contentData = new ContentData(chatRequest, message, true, false, false, Constants.OPEN_STATUS, "");
+            }
+
             updateLastMessageContents(contentData, listener);
         } else {
             updateLastMessage(message, listener);
+            if (chatStatus.equals(Constants.CLOSE_STATUS)) {
+                updateChatStatus(Constants.OPEN_STATUS);
+            }
         }
     }
 
@@ -355,6 +367,21 @@ public class FirebaseRepo {
     }
 
 
+    public void updateChatStatus(String status) {
+        firebaseFirestore.collection(Constants.CHAT_COLLECTION_PATH).document(sender.getSenderId()).update("chatStatus", status).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                chatStatus = status;
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull @NotNull Exception e) {
+
+            }
+        });
+    }
+
+
     public void updateLastMessageStatus(String status, OnNetworkResponseListener listener) {
 
         firebaseFirestore.collection(Constants.CHAT_COLLECTION_PATH).document(sender.getSenderId()).update("lastMessage.status", status).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -377,6 +404,7 @@ public class FirebaseRepo {
             public void onEvent(@Nullable @org.jetbrains.annotations.Nullable DocumentSnapshot value, @Nullable @org.jetbrains.annotations.Nullable FirebaseFirestoreException error) {
                 if (value != null && value.getData() != null) {
                     ContentData contentData = (ContentData) Utility.stringToObject(new Gson().toJson(value.getData()), ContentData.class);
+                    chatStatus = contentData.getChatStatus();
                     listener.onSuccessResponse(contentData);
                 }
             }

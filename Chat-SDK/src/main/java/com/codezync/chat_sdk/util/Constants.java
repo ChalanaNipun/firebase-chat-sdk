@@ -27,6 +27,7 @@ public class Constants {
     public static final String EMAIL_OR_PHONE_NO_ERROR_MESSAGE = "ChatRequest EmailOrPhoneNo field Cannot be empty !";
     public static final String MESSAGE_TONE_FILE_NAME = "notification_tone";
     public static final String EMPTY_BUBBLE_ERROR_MESSAGE = "Both Bubbles cannot be null !";
+    public static final String CLOSE_STATUS = "close";
 
 //    public static final String ERROR_SENDING_INIT_MESSAGE = "Init message sending error ! contact developers !";
 }
