@@ -2,16 +2,23 @@ package com.codezync.chat_sdk.chat;
 
 import android.Manifest;
 import android.app.Dialog;
+
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -19,6 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -49,10 +57,12 @@ import com.codezync.chat_sdk.util.Utility;
 import com.codezync.chat_sdk.viewmodel.FirebaseViewModel;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 public class ChatActivity extends AppCompatActivity {
@@ -89,7 +99,8 @@ public class ChatActivity extends AppCompatActivity {
     };
 
     private Handler keyboardHandler = new Handler();
-
+    private BottomSheetDialog imagePickerDialog;
+    private Uri imageUri;
 
     private Runnable messageExitTextChanger = new Runnable() {
         public void run() {
@@ -129,6 +140,11 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
+    private void dontOpenKeyboard() {
+        if (handler != null && runnable != null) {
+            keyboardHandler.removeCallbacks(runnable);
+        }
+    }
 
     private void focusEditText() {
         keyboardHandler.postDelayed(runnable, textFieldFocusDelay);
@@ -191,9 +207,7 @@ public class ChatActivity extends AppCompatActivity {
 
         if (isExit) {
             viewModel.stopListeners();
-            if (handler != null && runnable != null) {
-                keyboardHandler.removeCallbacks(runnable);
-            }
+            dontOpenKeyboard();
             finish();
         }
 
@@ -220,6 +234,26 @@ public class ChatActivity extends AppCompatActivity {
         applyUICustomizations();
 
 
+        imagePickerDialog = new BottomSheetDialog(this, R.style.AppBottomSheetDialogTheme);
+        imagePickerDialog.setContentView(R.layout.fragment_image_picker);
+        imagePickerDialog.setCanceledOnTouchOutside(true);
+//        imagePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
+        imagePickerDialog.findViewById(R.id.card_cancel).setOnClickListener(view -> {
+            imagePickerDialog.dismiss();
+        });
+
+        imagePickerDialog.findViewById(R.id.lbl_camera).setOnClickListener(view -> {
+            imagePickerDialog.dismiss();
+            checkCameraPermission();
+        });
+
+        imagePickerDialog.findViewById(R.id.lbl_gallery).setOnClickListener(view -> {
+            imagePickerDialog.dismiss();
+            checkReadStoragePermission();
+        });
+
         adapter = new ChatAdapter(this, sender);
 
 
@@ -240,7 +274,9 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         binding.btnImage.setOnClickListener(view -> {
-            openImagePicker();
+//            openImagePicker();
+            dontOpenKeyboard();
+            imagePickerDialog.show();
         });
 
         binding.llMain.setOnClickListener(new View.OnClickListener() {
@@ -308,9 +344,15 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
-    private void openImagePicker() {
+    private void checkReadStoragePermission() {
         if (permissionManager.checkPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constants.ACTIVITY_RESULTS_READ_STORAGE)) {
             openImageChooser();
+        }
+    }
+
+    private void checkCameraPermission() {
+        if (permissionManager.checkPermissions(new String[]{Manifest.permission.CAMERA}, Constants.ACTIVITY_RESULTS_CAMERA)) {
+            openCamera();
         }
     }
 
@@ -680,6 +722,12 @@ public class ChatActivity extends AppCompatActivity {
             } else {
                 permissionManager.noPermissionToast();
             }
+        } else if (requestCode == Constants.ACTIVITY_RESULTS_CAMERA) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openCamera();
+            } else {
+                permissionManager.noPermissionToast();
+            }
         }
     }
 
@@ -690,11 +738,39 @@ public class ChatActivity extends AppCompatActivity {
         if (data != null) {
             if (requestCode == Constants.IMAGE_CHOOSER_REQUEST_CODE & resultCode == RESULT_OK) {
                 // upload choose image
+                LogUtil.debug(TAG, "OnResult : Image picker");
                 Uri tempUri = data.getData();
                 //   String filePath = getPath(ChatActivity.this, tempUri);
 //                resizedImage = new File(getPath(ChatActivity.this, tempUri));
                 // File imageFile = Utility.resizeImage(filePath);
                 uploadImage(null, tempUri);
+            } else if (requestCode == Constants.CAMERA_REQUEST_CODE & resultCode == RESULT_OK) {
+                // upload captured image
+                LogUtil.debug(TAG, "OnResult : Image capture");
+//                Bitmap photo = (Bitmap) data.getExtras().get("data");
+//                Uri tempUri = getCapturedImageUri(getApplicationContext(), photo);
+//                uploadImage(null, tempUri);
+
+
+                try {
+                    Bitmap thumbnail = MediaStore.Images.Media.getBitmap(
+                            getContentResolver(), imageUri);
+
+                    String imageurl = getRealPathFromURI(imageUri);
+
+                    uploadImage(null, Uri.parse(imageurl));
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                LogUtil.debug(TAG, "OnResult : unknown");
+            }
+        } else {
+            LogUtil.debug(TAG, "OnResult : data is null");
+            if (imageUri != null) {
+                uploadImage(null, imageUri);
             }
         }
     }
@@ -704,6 +780,7 @@ public class ChatActivity extends AppCompatActivity {
 //        if (file != null) {
 //            viewModel.sendImage(openSession.getSessionId(), file);
         //for testing upload to fire storage
+        LogUtil.debug(TAG, "URI  = " + uri.toString());
         uploadingImageIndex = adapter.getItemCount();
         uploadingImage = new Message(Utility.getCurrentTimestamp(), sender, uri.toString(), Constants.IMAGE_CONTENT_TYPE, Constants.STATUS_UPLOADING);
         ifImageUploadingShowUploadingImage();
@@ -716,6 +793,7 @@ public class ChatActivity extends AppCompatActivity {
 //        }
     }
 
+
     public String getPath(Context context, Uri uriImage) {
         try {
             return PathUtil.getPath(context, uriImage);
@@ -725,8 +803,58 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
+    public String getRealPathFromURI(Uri contentUri) {
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = managedQuery(contentUri, proj, null, null, null);
+        int column_index = cursor
+                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
+
+    public Uri getCapturedImageUri(Context inContext, Bitmap inImage) {
+
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.PNG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
     private void openImageChooser() {
         Utility.openImageChooser(this, Constants.IMAGE_CHOOSER_REQUEST_CODE);
+    }
+
+    private void openCamera() {
+
+//        try {
+//
+//            String fName = "photo";
+//            File storageDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+//
+//            File imageFile = File.createTempFile(fName, ".png", storageDirectory);
+//            String capturedImageName = imageFile.getAbsolutePath();
+//             imageUri = FileProvider.getUriForFile(ChatActivity.this, "com.codezync.chat_sdk.fileprovider", imageFile);
+//
+//            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+//            startActivityForResult(intent, Constants.CAMERA_REQUEST_CODE);
+//
+//        } catch (Exception e) {
+//
+//            e.printStackTrace();
+//        }
+//        startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE), Constants.CAMERA_REQUEST_CODE);
+
+
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "New Picture");
+        values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
+        imageUri = getContentResolver().insert(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        startActivityForResult(intent, Constants.CAMERA_REQUEST_CODE);
+
     }
 
     @Override

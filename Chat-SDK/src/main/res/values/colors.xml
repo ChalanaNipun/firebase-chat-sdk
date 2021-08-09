@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#c7c5c5</color>
     <color name="dark_grey">#8c8888</color>
+    <color name="bottom_sheet_bg_color">#212121</color>
     <color name="chat_receiver_bubble_color">#f77052</color>
     <color name="chat_sender_bubble_color">#533190</color>
     <color name="chat_receiver_text_color">#FF000000</color>

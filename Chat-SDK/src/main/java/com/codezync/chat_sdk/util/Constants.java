@@ -13,7 +13,9 @@ public class Constants {
     public static final String DELIVERED_MESSAGE_STATUS = "delivered";
     public static final String DEFAULT_MESSAGE_STATUS = "default";
     public static final int IMAGE_CHOOSER_REQUEST_CODE = 500;
+    public static final int CAMERA_REQUEST_CODE = 700;
     public static final int ACTIVITY_RESULTS_READ_STORAGE = 400;
+    public static final int ACTIVITY_RESULTS_CAMERA = 600;
     public static final String RESIZE_IMAGE_OUTPUT_FOLDER = "CZC";
     public static final String STATUS_UPLOADING = "uploading";
     public static final String OPEN_STATUS = "open";
