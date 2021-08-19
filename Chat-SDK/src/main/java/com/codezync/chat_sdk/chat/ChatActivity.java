@@ -282,11 +282,13 @@ public class ChatActivity extends AppCompatActivity {
         binding.llMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                LogUtil.debug(TAG,"on click : main layout");
                 Utility.hideSoftKeyboard(ChatActivity.this);
             }
         });
 
         binding.recyclerview.setOnClickListener(view -> {
+            LogUtil.debug(TAG,"on click : recyclerview");
             Utility.hideSoftKeyboard(ChatActivity.this);
         });
 
@@ -335,6 +337,7 @@ public class ChatActivity extends AppCompatActivity {
                 Utility.hideSoftKeyboard(ChatActivity.this);
             }
         });
+
 
 
     }

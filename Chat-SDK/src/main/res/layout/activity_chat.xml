@@ -13,11 +13,7 @@
 
         <LinearLayout
             android:id="@+id/ll_header"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@color/chat_header_color"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            style="@style/headerLayoutStyle">
 
 
             <ImageView
@@ -32,8 +28,7 @@
             <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/img_admin"
                 style="@style/headerImageStyle"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+
                 android:src="@drawable/img_user_placeholder"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -185,7 +180,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
-
+                    style="@style/messageButtonStyle"
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/send_icon" />
             <!--            </androidx.cardview.widget.CardView>-->
