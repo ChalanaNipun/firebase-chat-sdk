@@ -448,21 +448,23 @@ public class ChatActivity extends AppCompatActivity {
 
 
     private void validateAndSend() {
-        if (!Utility.isNotNull(binding.txtMessage.getText().toString())) {
-//            NotificationUtility.showMessage(AlertType.ERROR, this, "", getString(R.string.empty_message_error));
+       if(openSession !=null && openSession.getSessionResponse()!=null){
+           if (!Utility.isNotNull(binding.txtMessage.getText().toString())) {
+               YoYo.with(Techniques.Shake)
+                       .duration(1000)
+                       .repeat(0)
+                       .playOn(binding.txtMessage);
 
-            YoYo.with(Techniques.Shake)
-                    .duration(1000)
-                    .repeat(0)
-                    .playOn(binding.txtMessage);
-
-            Utility.vibrate(this);
+               Utility.vibrate(this);
 
 
-        } else {
-            viewModel.sendTextMessage(openSession.getSessionId(), binding.txtMessage.getText().toString());
-            binding.txtMessage.setText("");
-        }
+           } else {
+               viewModel.sendTextMessage(openSession.getSessionId(), binding.txtMessage.getText().toString());
+               binding.txtMessage.setText("");
+           }
+       }else {
+           NotificationUtility.showSnakeBarMessage(ChatActivity.this,AlertType.WARNING,getString(R.string.please_wait));
+       }
     }
 
 
