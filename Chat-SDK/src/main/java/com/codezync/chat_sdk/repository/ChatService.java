@@ -71,6 +71,10 @@ public class ChatService {
 
         Activity activity = CodeZyncChat.getActivity();
 
+        if(activity==null){
+            return;
+        }
+
 
 //        if (dialog == null) {
         dialog = new Dialog(activity, R.style.FloatingDialog);
@@ -171,7 +175,7 @@ public class ChatService {
 
 
     private static void bindObserver() {
-        if (observer != null) {
+        if (observer != null && CodeZyncChat.getActivity()!=null) {
             LogUtil.debug(TAG, "bindObserver");
             viewModel.onNewMessageReceived.observe((LifecycleOwner) CodeZyncChat.getActivity(), observer);
         }
