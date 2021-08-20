@@ -59,7 +59,7 @@ public class FirebaseRepo {
     private SessionResponse sessionResponse;
     private ChatRequest chatRequest;
     private ListenerRegistration chatListener, adminTypingListener, lastMessageListener;
-    private String chatStatus;
+    private String chatStatus = "";
 
     public FirebaseRepo(Activity activity, ChatRequest chatRequest) {
         this.activity = activity;
